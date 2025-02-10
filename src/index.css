@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+  --btn-gradent-yellow: #fac422;
+  --btn-gradent-orange: #f84804;
+  --color-primary: #fed562;
+  --color-secondary: #ffad0f
+}
