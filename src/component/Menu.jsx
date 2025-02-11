@@ -81,9 +81,9 @@ function Menu() {
             {menuItems.map((item, index) => (
               <Link
                 key={index}
-                className="group flex flex-col gap-2 items-center p-1 w-full rounded-xl transition-all duration-300 hover:bg-white/40 hover:scale-105 hover:shadow-lg"
+                className="group flex flex-col gap-2 items-center p-1 w-full rounded-xl transition-all duration-300 "
               >
-                <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/50 shadow-inner shadow-md shadow-primary/40 border border-secondary/10">
+                <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white shadow-inner  shadow-primary/40 border border-secondary/10 hover:scale-105 ">
                   {item.icon}
                 </div>
                 <span className="text-sm text-gray-700/80 font-medium whitespace-nowrap">

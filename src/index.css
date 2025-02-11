@@ -1,8 +1,63 @@
 @import "tailwindcss";
 
+@property --border-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+
 @theme {
   --btn-gradent-yellow: #fac422;
   --btn-gradent-orange: #f84804;
   --color-primary: #fed562;
-  --color-secondary: #ffad0f
+  --color-secondary: #ffad0f;
+  --color-yellow-1: #feee91;
+  --color-yellow-2: #ffbd73;
+  --color-yellow-3: #ff9d3d;
 }
+
+@layer utilities {
+  @keyframes blob {
+    0% {
+      transform: scale(1);
+    }
+    33% {
+      transform: scale(1.2);
+    }
+    66% {
+      transform: scale(0.8);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+
+  @keyframes borderRotate {
+    0% {
+      --border-angle: 0deg;
+    }
+    100% {
+      --border-angle: 360deg;
+    }
+  }
+  @keyframes gradient { 
+    to { background-position: 200% 100% }
+  }
+  }
+  .animate-blob {
+    animation: blob 5s infinite;
+  }
+  .animated-border {
+    animation: borderRotate 6s linear infinite;
+    transition: transform 0.3s ease;
+  }
+.animate-gradient{
+
+  animation: gradient 5s linear infinite;
+}
+  
+
+
+
+           

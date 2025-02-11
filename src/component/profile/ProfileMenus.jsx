@@ -1,0 +1,166 @@
+import { motion } from "framer-motion";
+
+
+function ProfileMenus() {
+  
+
+  const menuCategories = [
+    {
+      category: "Profile",
+      items: [
+        {
+          title: "User Info",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/strategy_5257023.svg"
+        },
+        {
+          title: "Change Password",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/secured_8572300.svg"
+        },
+        {
+          title: "KYC Details",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/business-card_4898232.svg"
+        },
+        {
+          title: "Add Bank",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/library_15326945.svg"
+        }
+      ]
+    },
+    {
+      category: "Deposit",
+      items: [
+        {
+          title: "Fund",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/take_8100424.svg"
+        },
+        {
+          title: "History",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/clock_5257266.svg"
+        },
+        {
+          title: "Topup History",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/trophy_8100407.svg"
+        }
+      ]
+    },
+    {
+      category: "Transfer & Top-up",
+      items: [
+        {
+          title: "Fund Transfer",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/transfer_8678667.svg"
+        },
+        {
+          title: "Top-up ID",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/switch-on_17471170.png"
+        }
+      ]
+    },
+    {
+      category: "Withdrawal",
+      items: [
+        {
+          title: "Fund",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/briefcase_8100500.svg"
+        },
+        {
+          title: " History",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/alarm_5808360.svg"
+        }
+      ]
+    },
+    {
+      category: "Bonus Summary",
+      items: [
+        {
+          title: "Monthly Income",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/money_4898354.svg"
+        },
+        {
+          title: "Level ",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/bar-chart_4394952.svg"
+        },
+        {
+          title: "Compounding Report",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg"
+        },
+        {
+          title: "Club ",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg"
+        }
+      ]
+    },
+    {
+      category: "Referral Program",
+      items: [
+        {
+          title: "Direct Team",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/recruitment_4898334.svg"
+        },
+        {
+          title: "Downline Team",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/user_4087785.svg"
+        },
+        {
+          title: "Help Center",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/help.svg"
+        }
+      ]
+    }
+  ];
+  return (
+    <>
+      <div className="relative flex flex-col items-center justify-center overflow-hidden pb-20">
+        {/* Blurry Animated Blobs */}
+        {/* Profile Section */}
+        {menuCategories.map((category, categoryIndex) => (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: categoryIndex * 0.2 // Delay based on the index of the category
+            }}
+            key={categoryIndex}
+            className="mb-3 relative z-10 w-full"
+          >
+            <div className="px-5 mb-2">
+              <h5 className="text-sm font-semibold">{category.category}</h5>
+            </div>
+            <div className="mx-3 rounded-3xl p-3 px-0   [background:linear-gradient(45deg,#fff,#fff,#fff)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.50/.48)_40%,_theme(colors.secondary)_86%,_theme(colors.secondary)_20%,_theme(colors.secondary)_94%,_theme(colors.slate.50/.48))_border-box]  border border-transparent  animated-border">
+              <div className="">
+                <div className="">
+                  <ul
+                    className="grid  gap-y-5 items-center"
+                    style={{
+                      gridTemplateColumns: `repeat(${category.items.length}, minmax(0, 1fr))`
+                    }}
+                  >
+                    {category.items.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <div className="flex flex-col gap-2 items-center text-dark text-center text-xs">
+                          <div className="p-2 hover:scale-110 transition-transform duration-300 ease-in-out [background:linear-gradient(45deg,#fff,#fff,#fff)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.50/.48)_40%,_theme(colors.primary)_86%,_theme(colors.primary)_20%,_theme(colors.primary)_94%,_theme(colors.slate.50/.48))_border-box] rounded-full border border-transparent animated-border">
+                            <img
+                              src={item.icon}
+                              alt={item.title}
+                              className="w-8"
+                            />
+                          </div>
+                          <span className=" text-xs">{item.title}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+    
+    </>
+  );
+}
+
+export default ProfileMenus;

@@ -18,10 +18,10 @@ function Header() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1 px-3 py-0.5 bg-green-800/40 backdrop-blur-sm rounded-full">
-              <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
-              <span className="text-sm font-medium text-white">Active</span>
-            </div>
+          <span className=" inline-flex items-center bg-green-100 ring-1 ring-[#0F9D58] text-[#0F9D58] text-[9px] font-medium ms-2 px-2 py-0 rounded-full ">
+                    <span className="animate-pulse w-1.5 h-1.5 me-1 bg-[#0F9D58] rounded-full"></span>
+                    Active
+                  </span>
 
             <button onClick={Logout} className="p-2 bg-white rounded-full transition-colors">
               <Power className="w-6 h-6 text-red-500" strokeWidth={2.5} />
