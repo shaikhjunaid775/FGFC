@@ -5,7 +5,7 @@
 }
 
 body {
-  /* background-color: #ffffff; */
+  background-color: #f3f3f3;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -391,14 +391,14 @@ input[type="number"] {
     backdrop-filter: blur(20px); /* Increased blur for stronger glass effect */
     -webkit-backdrop-filter: blur(20px); /* Webkit compatibility */
     
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border to enhance glassy look */
+    border: 1px solid rgb(255 255 255 / 56%); /* Light border to enhance glassy look */
     transition: border-color 0.25s, background 0.25s; /* Smooth transition effects */
     overflow: hidden; /* Ensures no overflow of elements inside the rounded border */
   }
   
  
 .slider-text {
-    background: linear-gradient(to right, rgb(255 255 255 / 59%) 40%, rgb(0 0 0 / 80%) 50%, rgb(255 255 255 / 50%) 60%);
+    background: linear-gradient(to right, rgb(0 0 0 / 66%) 40%, rgb(255 255 255 / 80%) 50%, rgb(0 0 0 / 72%) 60%);
     background-clip: text;
     animation: slidetounlock 4s infinite;
     animation-delay: 3s;
