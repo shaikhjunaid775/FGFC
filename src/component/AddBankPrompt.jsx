@@ -1,16 +1,16 @@
 import { X, ChevronRight } from "lucide-react";
 
-function KycPrompt() {
+function AddBankPrompt() {
   return (
     <>
       <div className="px-5">
-        <div className="flex items-center justify-between  p-2 rounded-xl  w-full bg-white  ">
-          <span className="text-black font-medium">KYC</span>
+        <div className="flex items-center justify-between  p-2 rounded-lg  w-full bg-white   ">
+          <span className="text-black font-medium">Add Bank Details</span>
           <div className="flex items-center">
             <div className="flex items-center gap-2 bg-red-500 text-white text-sm font-semibold px-3 py-0.5 rounded-full">
-              {/* <Check size={14} /> */}
+              {/* <UnCheck  /> */}
               <X size={14}/>
-              Unverified
+              Pending
             </div>
             <ChevronRight />
           </div>
@@ -21,4 +21,4 @@ function KycPrompt() {
   );
 }
 
-export default KycPrompt;
+export default AddBankPrompt;

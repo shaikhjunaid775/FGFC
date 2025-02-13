@@ -35,7 +35,7 @@ function OnBoard() {
         <div className="relative -mb-px h-px w-48 bg-gradient-to-r from-transparent via-[var(--btn-gradent-yellow)] to-transparent"></div>
       </div>
       <div
-        className="fixed bottom-0 bg-yellow-2/30 rounded-4xl rounded-b-none
+        className="max-w-[530px] mx-auto left-0 right-0 fixed bottom-0 bg-yellow-2/30 rounded-4xl rounded-b-none
 bg-clip-padding
 backdrop-filter
 backdrop-blur-sm
@@ -55,7 +55,7 @@ backdrop-contrast-100"
             <h2 className="text-3xl font-semibold">
               Buy, sell &amp; trade more efficient
             </h2>
-            <p className="text-black/30 text-xs text-normal">
+            <p className="text-black/50 text-xs text-normal">
               Instantly invest in cryptocurrencies, exchange it and pay online
               with us
             </p>

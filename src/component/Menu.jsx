@@ -19,7 +19,7 @@ function Menu() {
         </svg>
       ),
       label: "Wallet",
-      path: "/"
+      path: "/transferFund"
     },
     {
       icon: (
@@ -32,7 +32,7 @@ function Menu() {
         </svg>
       ),
       label: "Deposit",
-      path: "/messages"
+      path: "/deposit"
     },
     {
       icon: (
@@ -70,7 +70,7 @@ function Menu() {
         </svg>
       ),
       label: "Levels",
-      path: "/calendar"
+      path: ""
     }
   ];
   return (
@@ -79,7 +79,7 @@ function Menu() {
         <div className="relative w-full">
           <div className="flex">
             {menuItems.map((item, index) => (
-              <Link
+              <Link to={item.path}
                 key={index}
                 className="group flex flex-col gap-2 items-center p-1 w-full rounded-xl transition-all duration-300 "
               >

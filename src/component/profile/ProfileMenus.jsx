@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 
 function ProfileMenus() {
@@ -10,19 +11,21 @@ function ProfileMenus() {
       items: [
         {
           title: "User Info",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/strategy_5257023.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/strategy_5257023.svg",
         },
         {
           title: "Change Password",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/secured_8572300.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/secured_8572300.svg",
+          url: "/changepassword"
         },
         {
           title: "KYC Details",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/business-card_4898232.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/business-card_4898232.svg",
+          url: "/kyc"
         },
         {
           title: "Add Bank",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/library_15326945.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/library_15326945.svg",
         }
       ]
     },
@@ -30,12 +33,14 @@ function ProfileMenus() {
       category: "Deposit",
       items: [
         {
-          title: "Fund",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/take_8100424.svg"
+          title: "Deposit Fund",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/take_8100424.svg",
+          url: "/deposit"
         },
         {
-          title: "History",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/clock_5257266.svg"
+          title: "Deposit History",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/clock_5257266.svg",
+          url: "/deposit"
         },
         {
           title: "Topup History",
@@ -48,11 +53,13 @@ function ProfileMenus() {
       items: [
         {
           title: "Fund Transfer",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/transfer_8678667.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/transfer_8678667.svg",
+          url: "/transferFund"
         },
         {
           title: "Top-up ID",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/switch-on_17471170.png"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/switch-on_17471170.png",
+          url: "/topUp"
         }
       ]
     },
@@ -60,11 +67,11 @@ function ProfileMenus() {
       category: "Withdrawal",
       items: [
         {
-          title: "Fund",
+          title: "Withdrawal Fund",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/briefcase_8100500.svg"
         },
         {
-          title: " History",
+          title: "Withdrawal History",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/alarm_5808360.svg"
         }
       ]
@@ -138,7 +145,7 @@ function ProfileMenus() {
                   >
                     {category.items.map((item, itemIndex) => (
                       <li key={itemIndex}>
-                        <div className="flex flex-col gap-2 items-center text-dark text-center text-xs">
+                        <Link to={item.url} className="flex flex-col gap-2 items-center text-dark text-center text-xs">
                           <div className="p-2 hover:scale-110 transition-transform duration-300 ease-in-out [background:linear-gradient(45deg,#fff,#fff,#fff)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.50/.48)_40%,_theme(colors.primary)_86%,_theme(colors.primary)_20%,_theme(colors.primary)_94%,_theme(colors.slate.50/.48))_border-box] rounded-full border border-transparent animated-border">
                             <img
                               src={item.icon}
@@ -147,7 +154,7 @@ function ProfileMenus() {
                             />
                           </div>
                           <span className=" text-xs">{item.title}</span>
-                        </div>
+                        </Link>
                       </li>
                     ))}
                   </ul>

@@ -7,6 +7,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import OnBoard from "./pages/OnBoard";
 import Deposit from "./pages/Deposit";
+import ChangePassword from "./pages/ChangePassword";
+import TransferFund from "./pages/TransferFund";
+import Topup from "./pages/Topup";
+import Kyc from "./pages/Kyc";
 
 function App() {
   return (
@@ -21,6 +25,10 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/deposit" element={<Deposit />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/transferFund" element={<TransferFund />} />
+          <Route path="/topUp" element={<Topup />} />
+          <Route path="/kyc" element={<Kyc />} />
         </Routes>
       </Router>
     </>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function Wallet() {
   return <>
@@ -67,7 +68,7 @@ function Wallet() {
                     </span>
                   </div>
                   <div>
-                    <span className="px-1 py-2.5  text-sm font-medium text-gray-900 bg-gradient-to-t from-primary  rounded-full   text-center   flex gap-2  justify-center shadow-md">
+                    <Link to="/deposit" className="px-1 py-2.5  text-sm font-medium text-gray-900 bg-gradient-to-t from-primary  rounded-full   text-center   flex gap-2  justify-center shadow-md">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -84,7 +85,7 @@ function Wallet() {
                       </svg>
 
                       <span>Deposit</span>
-                    </span>
+                    </Link>
                   </div>
                 </div>
               </div>

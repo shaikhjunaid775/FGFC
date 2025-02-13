@@ -3,7 +3,7 @@ import logomarket from "../assets/images/logo/logomarketing.png";
 
 const Footer = () => {
   return (
-    <article className="fixed  bottom-0 border-t border-solid border-secondary w-full ease-in-out duration-500  rounded-2xl rounded-b-none flex  bg-[#fffbee]">
+    <article className="max-w-[1124px] fixed  bottom-0 border-t border-solid border-secondary w-full ease-in-out duration-500  rounded-2xl rounded-b-none flex  bg-[#fffbee]">
       <Link to="/dashboard"
         className=" relative w-full p-2 ease-in-out duration-300 border-solid border-black/10  group flex flex-col gap-1 items-center justify-center text-black rounded-xl"
         htmlFor="dashboard"
