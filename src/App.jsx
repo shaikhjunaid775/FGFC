@@ -11,6 +11,10 @@ import ChangePassword from "./pages/ChangePassword";
 import TransferFund from "./pages/TransferFund";
 import Topup from "./pages/Topup";
 import Kyc from "./pages/Kyc";
+import Portfolio from "./pages/Portfolio";
+import BankDetails from "./pages/BankDetails";
+import EditPtofile from "./pages/EditPtofile";
+import DepositHistory from "./component/deposit/DepositHistory";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
           <Route path="/transferFund" element={<TransferFund />} />
           <Route path="/topUp" element={<Topup />} />
           <Route path="/kyc" element={<Kyc />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/bankdetails" element={<BankDetails />} />
+          <Route path="/editprofile" element={<EditPtofile />} />
+          <Route path="/deposithistory" element={<DepositHistory />} />
         </Routes>
       </Router>
     </>

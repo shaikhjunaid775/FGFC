@@ -41,14 +41,14 @@ const Bank = ({ goBack }) => {
           </div>
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto px-3 pb-20">
-            <div className="space-y-4">
-              <div className="space-y-2">
+            <div className="space-y-2">
+              <div className="">
                 <label className="text-sm font-medium">Select Bank</label>
                 <div className="relative">
                   <select
                     value={selectedBank}
                     onChange={(e) => setSelectedBank(e.target.value)}
-                    className="w-full h-10 px-3 rounded-md border border-input bg-card text-sm focus:ring-2 focus:ring-ring input-transition"
+                    className="w-full h-10 px-3 rounded-full border border-input border-primary text-sm focus:ring-2 focus:ring-ring input-transition"
                   >
                     <option>Axis Bank</option>
                     <option>HDFC Bank</option>
@@ -266,34 +266,34 @@ const Bank = ({ goBack }) => {
                   </>
                 )}
               </div>
-              <div className="space-y-2">
+              <div className="">
                 <label className="text-base text-gray-500 font-semibold block mb-0">
                   Amount
                 </label>
-                <div className="flex items-center justify-between border-b border-gray-300 pb-2">
+                <div className="flex items-center justify-between  ">
                   <input
                     type="number"
-                    className="w-full outline-none text-sm text-gray-700 p-2"
+                    className="w-full p-1 px-2 border border-primary rounded-full focus:ring-2 focus:ring-secondary focus:border-secondary"
                     placeholder="Enter amount"
                   />
                 </div>
               </div>
   
               {/* Transaction Hash */}
-              <div className="space-y-2">
+              <div className="">
                 <label className="text-base text-gray-500 font-semibold block mb-0">
                   Bank/UTR Number
                 </label>
-                <div className="flex items-center justify-between border-b border-gray-300 pb-2">
+                <div className="flex items-center justify-between  ">
                   <input
                     type="text"
-                    className="w-full outline-none text-sm text-gray-700 p-2"
+                    className="w-full p-1 px-2 border border-primary rounded-full focus:ring-2 focus:ring-secondary focus:border-secondary"
                     placeholder="Enter Bank/UTR Number"
                   />
                 </div>
               </div>
   
-              <div className="space-y-2">
+              <div className="">
                 <label className="text-sm font-medium">
                   Upload Payment Screenshot
                 </label>
@@ -314,9 +314,15 @@ const Bank = ({ goBack }) => {
                   </div>
                 </div>
               </div>
-              <button
+              {/* <button
                 type="submit"
                 className="px-6 py-2.5 w-full  text-sm font-medium text-black bg-gradient-to-t from-primary/80 hover:bg-gradient-to-b hover:from-primary hover:from-45%   rounded-full   text-center   flex gap-2  justify-center shadow-md cursor-pointer"
+              >
+                Submit
+              </button> */}
+              <button
+                type="submit"
+                className="px-6 py-2.5 w-full  text-sm font-medium text-black bg-gradient-to-tr from-primary to-secondary  rounded-full   text-center   flex gap-2  justify-center shadow-md cursor-pointer"
               >
                 Submit
               </button>

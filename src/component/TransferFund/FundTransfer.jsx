@@ -71,7 +71,7 @@ function FundTransfer() {
           >
             <button
               onClick={handleTransfer}
-              className="w-full py-2 text-base font-medium bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white rounded-xl transition-all duration-200 shadow-md hover:shadow-lg"
+              className="px-6 py-2.5 w-full  text-sm font-medium text-black bg-gradient-to-tr from-primary to-secondary   rounded-full   text-center   flex gap-2  justify-center shadow-md cursor-pointer"
             >
               Transfer
             </button>

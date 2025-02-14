@@ -66,29 +66,29 @@ const Upi = ({ goBack }) => {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-2">
               {/* Amount Input */}
-              <div className="space-y-2">
+              <div className="">
                 <label className="text-base text-gray-500 font-semibold block mb-0">
                   Amount
                 </label>
-                <div className="flex items-center justify-between border-b border-gray-300 pb-2">
+                <div className="flex items-center justify-between  pb-2">
                   <input
                     type="number"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="w-full outline-none text-sm text-gray-700 p-2"
+                    className="w-full p-1 px-2 border border-primary rounded-full focus:ring-2 focus:ring-secondary focus:border-secondary"
                     placeholder="Enter amount"
                   />
                 </div>
               </div>
 
               {/* Deposit Address */}
-              <div className="space-y-2">
+              <div className="">
                 <label className="text-base text-gray-500 font-semibold block mb-0">
                   Deposit Address
                 </label>
-                <div className="flex items-center px-2 space-x-2 border border-b-2 mt-2 rounded-lg">
+                <div className="flex items-center px-2 space-x-2 border border-b-2 border-primary  rounded-full">
                   <input
                     type="text"
                     value={address}
@@ -97,7 +97,7 @@ const Upi = ({ goBack }) => {
                   />
                   <button
                     onClick={copyToClipboard}
-                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                   >
                     <Copy size={18} className="text-gray-500" />
                   </button>
@@ -111,7 +111,7 @@ const Upi = ({ goBack }) => {
                 </label>
                 <input
                   type="file"
-                  className="w-full text-gray-400 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-1.5 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded-lg"
+                  className="w-full text-gray-400 font-semibold text-sm bg-white border border-primary file:cursor-pointer cursor-pointer file:border-0 file:py-1.5 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded-full mb-0"
                 />
                 <p className="text-xs text-gray-400">
                   PNG, JPG, SVG, WEBP, and GIF are allowed.
@@ -123,10 +123,10 @@ const Upi = ({ goBack }) => {
                 <label className="text-base text-gray-500 font-semibold block mb-0">
                   Bank/UTR Number
                 </label>
-                <div className="flex items-center justify-between border-b border-gray-300 pb-2">
+                <div className="flex items-center justify-between  pb-2">
                   <input
                     type="text"
-                    className="w-full outline-none text-sm text-gray-700 p-2"
+                    className="w-full p-1 px-2 border border-primary rounded-full focus:ring-2 focus:ring-secondary focus:border-secondary"
                     placeholder="Enter Bank/UTR Number"
                   />
                 </div>
@@ -136,7 +136,7 @@ const Upi = ({ goBack }) => {
               <div className="space-y-2">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 w-full  text-sm font-medium text-black bg-gradient-to-t from-primary/80 hover:bg-gradient-to-b hover:from-primary hover:from-45%   rounded-full   text-center   flex gap-2  justify-center shadow-md cursor-pointer"
+                  className="px-6 py-2.5 w-full  text-sm font-medium text-black bg-gradient-to-tr from-primary to-secondary rounded-full   text-center   flex gap-2  justify-center shadow-md cursor-pointer"
                 >
                   Submit
                 </button>

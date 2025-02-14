@@ -35,7 +35,7 @@ const Footer = () => {
         <img src={logomarket} alt="Logo Marketing" className="w-6" />
         <span className="leading-none text-black/50 peer-checked/expand:text-primary font-semibold">Markets</span>
       </Link>
-      <label
+      <Link to="/portfolio"
         className=" relative w-full  p-2 ease-in-out duration-300 border-solid border-black/10  group flex flex-col gap-1 items-center justify-center text-black rounded-xl"
         htmlFor="Portfolio"
       >
@@ -62,7 +62,7 @@ const Footer = () => {
           </g>
         </svg>
         <span className="leading-none text-black/50 peer-checked/expand:text-primary font-semibold">Portfolio</span>
-      </label>
+      </Link>
       <Link to="/profile"
         className=" relative w-full p-2 ease-in-out duration-300 border-solid border-black/10  group flex flex-col gap-1 items-center justify-center text-black rounded-xl"
         htmlFor="Account"

@@ -211,7 +211,7 @@ function ChangePassword() {
                 <div className="mt-4 flex items-center justify-end gap-x-2">
                   <button
                     type="submit"
-                    className="w-full text-center items-center bg-gradient-to-r from-primary to-secondary justify-center rounded-full text-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent  h-10 px-4 py-2 duration-200 border border-primary"
+                    className="w-full text-center items-center bg-gradient-to-tr from-primary to-secondary  justify-center rounded-full text-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent  h-10 px-4 py-2 duration-200 "
                   >
                     Change Password
                   </button>

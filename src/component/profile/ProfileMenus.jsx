@@ -12,6 +12,7 @@ function ProfileMenus() {
         {
           title: "User Info",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/strategy_5257023.svg",
+          url: "/editprofile"
         },
         {
           title: "Change Password",
@@ -26,6 +27,7 @@ function ProfileMenus() {
         {
           title: "Add Bank",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/library_15326945.svg",
+          url: "/bankdetails"
         }
       ]
     },
@@ -129,7 +131,7 @@ function ProfileMenus() {
               delay: categoryIndex * 0.2 // Delay based on the index of the category
             }}
             key={categoryIndex}
-            className="mb-3 relative z-10 w-full"
+            className="mb-3 relative  w-full"
           >
             <div className="px-5 mb-2">
               <h5 className="text-sm font-semibold">{category.category}</h5>

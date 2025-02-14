@@ -7,7 +7,7 @@ import Wallet from "../component/profile/Wallet";
 function Profile() {
   return (
     <>
-      <div className="absolute w-full max-w-lg -z-100 overflow-hidden">
+      <div className="absolute w-full -z-100 overflow-hidden h-[150vh]" >
         <div
           className={`absolute -right-24 top-[10%] h-72 w-72 animate-blob rounded-full opacity-45 mix-blend-multiply blur-3xl bg-primary`}
         ></div>
@@ -17,16 +17,15 @@ function Profile() {
         <div
           className={`absolute left-40 top-[70%] h-72 w-24 animate-blob rounded-full opacity-45 mix-blend-multiply blur-3xl bg-yellow-1`}
         ></div>
-
-        <ProfileCard />
-
-        {/* Balance Card */}
-        <Wallet />
-
-        <ReferralCard />
-
-        <ProfileMenus />
       </div>
+      <ProfileCard />
+
+      {/* Balance Card */}
+      <Wallet />
+
+      <ReferralCard />
+
+      <ProfileMenus />
       <Footer />
     </>
   );

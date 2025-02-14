@@ -48,7 +48,7 @@ function Register() {
           <div className="relative -mb-px h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent"></div>
         </a>
         <div className="relative my-12 w-full max-w-lg sm:mt-10">
-          <div className="mx-5 border   border-primary shadow-[0px_0px_50px_5px] shadow-[#fed3285e]/50 rounded-lg   border-black/20  rounded-xl">
+          <div className="mx-5 border   border-primary shadow-[0px_0px_50px_5px] shadow-[#fed3285e]/50      rounded-xl">
             <div className="flex flex-col p-4 pt-6">
               <h3 className="text-xl font-semibold leading-6 tracking-tighter">
                 Register

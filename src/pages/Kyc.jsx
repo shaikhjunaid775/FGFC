@@ -41,7 +41,7 @@ const DocumentUploader = () => {
           to complete the KYC process by submitting the following document
         </p>
         <div className=" mx-auto pb-20 bg-white rounded-2xl shadow-[0px_-12px_15px_0px_rgba(0,_0,_0,_0.050)]  overflow-hidden items-center">
-          <div className="px-4 py-3">
+          <div className="px-4 py-3 pt-5">
             {Object.keys(selectedFiles).map((key) => (
               <div key={key} className="mb-4">
                 <div className="flex justify-between mb-2">
@@ -91,7 +91,7 @@ const DocumentUploader = () => {
               </div>
             ))}
             <div className="flex items-center justify-center mt-4">
-              <button className="w-full px-1 py-2.5  text-sm font-medium text-gray-900 bg-gradient-to-t from-primary  rounded-full   text-center   flex gap-2  justify-center shadow-md">
+              <button className="w-full px-1 py-2.5  text-sm font-medium text-gray-900 bg-gradient-to-tr from-primary to-secondary  rounded-full   text-center   flex gap-2  justify-center shadow-md">
                 Upload
               </button>
             </div>
