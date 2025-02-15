@@ -42,11 +42,12 @@ function ProfileMenus() {
         {
           title: "Deposit History",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/clock_5257266.svg",
-          url: "/deposit"
+          url: "/deposithistory"
         },
         {
           title: "Topup History",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/trophy_8100407.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/trophy_8100407.svg",
+          url: "/topuphistory"
         }
       ]
     },

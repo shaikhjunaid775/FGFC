@@ -15,6 +15,7 @@ import Portfolio from "./pages/Portfolio";
 import BankDetails from "./pages/BankDetails";
 import EditPtofile from "./pages/EditPtofile";
 import DepositHistory from "./component/deposit/DepositHistory";
+import TopupHistory from "./pages/TopupHistory";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/bankdetails" element={<BankDetails />} />
           <Route path="/editprofile" element={<EditPtofile />} />
           <Route path="/deposithistory" element={<DepositHistory />} />
+          <Route path="/topuphistory" element={<TopupHistory />} />
         </Routes>
       </Router>
     </>

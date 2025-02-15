@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -23,9 +23,12 @@
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
     "react-router-dom": "^7.1.5",
+    "react-tailwindcss-datepicker": "^2.0.0",
     "react-tradingview-embed": "^3.0.6",
     "styled-components": "^6.1.15",
-    "tailwindcss": "^4.0.5"
+    "tailwind-datepicker-react": "^1.4.3",
+    "tailwindcss": "^4.0.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

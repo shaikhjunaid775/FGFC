@@ -5,9 +5,9 @@ import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Datepicker from "tailwind-datepicker-react";
-import Footer from "../../component/Footer"
+import Footer from "../component/Footer";
 
-function DepositHistory() {
+function TopupHistory() {
   const [showStart, setShowStart] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
   const [startDate, setStartDate] = useState(null);
@@ -156,7 +156,7 @@ function DepositHistory() {
             <ChevronLeft />
           </button>
           <span className="font-semibold text-lg whitespace-nowrap">
-            Deposit History
+          Topup History
           </span>
         </div>
         <div className="p-4">
@@ -310,4 +310,4 @@ function DepositHistory() {
   );
 }
 
-export default DepositHistory;
+export default TopupHistory;

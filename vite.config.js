@@ -11,4 +11,5 @@ export default defineConfig({
     historyApiFallback: true,
   },
   plugins: [react(),tailwindcss(),],
+  content: "./node_modules/tailwind-datepicker-react/dist/**/*.js", // <--- Add this line
 })
