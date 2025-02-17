@@ -16,7 +16,11 @@ import BankDetails from "./pages/BankDetails";
 import EditPtofile from "./pages/EditPtofile";
 import DepositHistory from "./component/deposit/DepositHistory";
 import TopupHistory from "./pages/TopupHistory";
-import MonthlyIncome from "./pages/MonthlyIncome";
+import MonthlyIncome from "./pages/ledgers/MonthlyIncome";
+import LevelIncome from "./pages/ledgers/LevelIncome";
+import ClubIncome from "./pages/ledgers/ClubIncome";
+import PayoutReport from "./pages/ledgers/PayoutReport";
+import CompoundingReport from "./pages/ledgers/CompoundingReport";
 
 function App() {
   return (
@@ -40,7 +44,11 @@ function App() {
           <Route path="/editprofile" element={<EditPtofile />} />
           <Route path="/deposithistory" element={<DepositHistory />} />
           <Route path="/topuphistory" element={<TopupHistory />} />
-          <Route path="/Monthlyincome" element={<MonthlyIncome />} />
+          <Route path="/monthlyincome" element={<MonthlyIncome />} />
+          <Route path="/levelincome" element={<LevelIncome />} />
+          <Route path="/clubincome" element={<ClubIncome />} />
+          <Route path="/PayoutReport" element={<PayoutReport />} />
+          <Route path="/compoundingReport" element={<CompoundingReport />} />
         </Routes>
       </Router>
     </>

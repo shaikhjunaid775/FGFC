@@ -84,19 +84,28 @@ function ProfileMenus() {
       items: [
         {
           title: "Monthly Income",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/money_4898354.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/money_4898354.svg",
+          url: "/monthlyincome"
         },
         {
-          title: "Level ",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/bar-chart_4394952.svg"
+          title: "Level Income",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/bar-chart_4394952.svg",
+          url: "/levelincome"
         },
         {
           title: "Compounding Report",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg",
+          url: ""
         },
         {
-          title: "Club ",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg"
+          title: "Club Income",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg",
+          url: "/clubincome"
+        },
+        {
+          title: "Payout Report",
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg",
+          url: "/PayoutReport"
         }
       ]
     },

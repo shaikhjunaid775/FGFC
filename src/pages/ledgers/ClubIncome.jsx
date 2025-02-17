@@ -5,9 +5,9 @@ import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Datepicker from "tailwind-datepicker-react";
-import Footer from "../component/Footer";
+import Footer from "../../component/Footer";
 
-function MonthlyIncome() {
+function ClubIncome() {
   const [showStart, setShowStart] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
   const [startDate, setStartDate] = useState(null);
@@ -17,14 +17,14 @@ function MonthlyIncome() {
   const options = {
     autoHide: true,
     todayBtn: false,
-    clearBtn: true,
+    clearBtn: false,
     placement: "start", // Ensures it opens downward
     theme: {
       background: "bg-white",
       text: "text-gray-900",
       primary: "border border-primary focus:ring-primary", // 👈 Custom border color
       secondary: "bg-gray-200",
-      disabled: "bg-gray-300",
+      disabled: "bg-gray-300"
     },
     icons: {
       prev: () => <span>{"<"}</span>,
@@ -36,52 +36,59 @@ function MonthlyIncome() {
   const data = [
     {
       id: 1,
-      fullname: "Test",
-      memberId: "123",
-      topup: "₹ 100",
-      date: "2025-10-12"
+      date: "2025-10-12",
+      particulars: "Investment Return",
+      club: "gold",
+      clubIncome: "₹ 2500",
+      status: "Completed"
     },
     {
       id: 2,
-      fullname: "John Doe",
-      memberId: "456",
-      topup: "₹ 200",
-      date: "2025-09-15"
+      date: "2025-09-15",
+      particulars: "Monthly Bonus",
+      club: "silver",
+      clubIncome: "₹ 1500",
+      status: "Pending"
     },
     {
       id: 3,
-      fullname: "Alice",
-      memberId: "789",
-      topup: "₹ 150",
-      date: "2025-10-10"
+      date: "2025-10-10",
+      particulars: "Referral Bonus",
+      club: "gold",
+      clubIncome: "₹ 2500",
+      status: "Completed"
     },
     {
       id: 4,
-      fullname: "David",
-      memberId: "111",
-      topup: "₹ 250",
-      date: "2025-08-22"
+      date: "2025-08-22",
+      particulars: "Investment Return",
+      club: "gold",
+      clubIncome: "₹ 2500",
+      status: "Completed"
     },
     {
       id: 5,
-      fullname: "Emma",
-      memberId: "222",
-      topup: "₹ 300",
-      date: "2025-11-05"
+      date: "2025-11-05",
+      particulars: "Monthly Profit",
+      club: "diamond",
+      clubIncome: "₹ 3000",
+      status: "Pending"
     },
     {
       id: 6,
-      fullname: "Sophia",
-      memberId: "333",
-      topup: "₹ 400",
-      date: "2025-07-18"
+      date: "2025-07-18",
+      particulars: "Bonus Reward",
+      club: "silver",
+      clubIncome: "₹ 3500",
+      status: "Completed"
     },
     {
       id: 7,
-      fullname: "James",
-      memberId: "444",
-      topup: "₹ 500",
-      date: "2025-06-30"
+      date: "2025-06-30",
+      particulars: "Profit Share",
+      club: "gold",
+      clubIncome: "₹ 4000",
+      status: "Pending"
     }
   ];
 
@@ -110,10 +117,10 @@ function MonthlyIncome() {
 
   // Copy to Clipboard
   const copyToClipboard = () => {
-    const text = filteredData
+    const text = data
       .map(
         (row) =>
-          `${row.id}\t${row.fullname}\t${row.memberId}\t${row.topup}\t${row.date}`
+          `${row.id}\t${row.dateTime}\t${row.particulars}\t${row.clubIncome}\t${row.club}\t${row.status}`
       )
       .join("\n");
     navigator.clipboard.writeText(text);
@@ -122,7 +129,7 @@ function MonthlyIncome() {
 
   // Export to Excel
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(filteredData);
+    const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
     XLSX.writeFile(workbook, "table_data.xlsx");
@@ -134,14 +141,15 @@ function MonthlyIncome() {
     doc.text("Table Data", 20, 10);
     doc.autoTable({
       head: [
-        ["Sr", "Fullname", "Member ID", "Top-up Amount", "Top-up Active Date"]
+        ["Sr", "Date & Time", "Particulars", "Club Income", "Club", "Status"]
       ],
-      body: filteredData.map((row) => [
+      body: data.map((row) => [
         row.id,
-        row.fullname,
-        row.memberId,
-        row.topup,
-        row.date
+        row.dateTime,
+        row.particulars,
+        row.clubIncome,
+        row.club,
+        row.status
       ])
     });
     doc.save("table_data.pdf");
@@ -156,10 +164,20 @@ function MonthlyIncome() {
             <ChevronLeft />
           </button>
           <span className="font-semibold text-lg whitespace-nowrap">
-          Monthly Income
+            Club Income
           </span>
         </div>
-        <div className="p-4">
+        <div className="p-4 pb-20">
+          <div className="mb-4">
+            <div className="grid grid-cols-2 gap-10">
+              <div className="flex flex-col justify-space p-2 bg-primary text-black rounded-lg primary-gradient">
+                <span className="text-md">Total Earning</span>
+                <span className="text-2xl font-semibold">
+                  ₹<span id="level-income">5000.00</span>
+                </span>
+              </div>
+            </div>
+          </div>
           {/* Export Buttons */}
           <div className="flex gap-2 mb-4">
             <button
@@ -191,31 +209,29 @@ function MonthlyIncome() {
 
           {/* Date Filter */}
           <div className="mb-4 flex flex-col md:flex-row justify-end items-end gap-4">
-            
-              {/* Start Date */}
-              <div className="relative  md:w-auto w-full">
-                <label className="font-semibold">Start Date: </label>
-                <Datepicker
-                  options={options}
-                  onChange={(date) => setStartDate(date)}
-                  show={showStart}
-                  setShow={setShowStart}
-                  
-                  className="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-                />
-              </div>
+            {/* Start Date */}
+            <div className="relative  md:w-auto w-full">
+              <label className="font-semibold">Start Date: </label>
+              <Datepicker
+                options={options}
+                onChange={(date) => setStartDate(date)}
+                show={showStart}
+                setShow={setShowStart}
+                className="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
+              />
+            </div>
 
-              {/* End Date */}
-              <div className="relative md:w-auto w-full">
-                <label className="font-semibold">End Date: </label>
-                <Datepicker
-                  options={options}
-                  onChange={(date) => setEndDate(date)}
-                  show={showEnd}
-                  setShow={setShowEnd}
-                  inputClassName="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-                />
-              </div>
+            {/* End Date */}
+            <div className="relative md:w-auto w-full">
+              <label className="font-semibold">End Date: </label>
+              <Datepicker
+                options={options}
+                onChange={(date) => setEndDate(date)}
+                show={showEnd}
+                setShow={setShowEnd}
+                inputClassName="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
+              />
+            </div>
             {/* Reset Button */}
             <button
               onClick={handleReset}
@@ -229,12 +245,13 @@ function MonthlyIncome() {
           <div className="relative overflow-x-auto rounded-xl bg-white shadow-lg ">
             <table className="w-full text-sm text-left text-gray-500">
               <thead className="text-gray-700 bg-gradient-to-r from-primary to-secondary">
-                <tr className="text-center whitespace-nowrap">
+                <tr className="text-center whitespace-nowrap capitalize">
                   <th className="px-3 py-2">Sr</th>
-                  <th className="px-3 py-2">Fullname</th>
-                  <th className="px-3 py-2">Member ID</th>
-                  <th className="px-3 py-2">Top-up Amount</th>
-                  <th className="px-3 py-2">Top-up Active Date</th>
+                  <th className="px-3 py-2">date & Time</th>
+                  <th className="px-3 py-2">particulars</th>
+                  <th className="px-3 py-2">club</th>
+                  <th className="px-3 py-2">club Income</th>
+                  <th className="px-3 py-2">status</th>
                 </tr>
               </thead>
               <tbody>
@@ -242,15 +259,16 @@ function MonthlyIncome() {
                   paginatedData.map((item, index) => (
                     <tr
                       key={item.id}
-                      className="even:bg-gray-50 odd:bg-[#fdf8ea] border-b text-center whitespace-nowrap"
+                      className="even:bg-gray-50 odd:bg-[#fdf8ea] border-b last:border-0 text-center whitespace-nowrap"
                     >
                       <td className="px-3 py-2 font-bold">
                         {startIndex + index + 1}
                       </td>
-                      <td className="px-3 py-2">{item.fullname}</td>
-                      <td className="px-3 py-2">{item.memberId}</td>
-                      <td className="px-3 py-2">{item.topup}</td>
                       <td className="px-3 py-2">{item.date}</td>
+                      <td className="px-3 py-2">{item.particulars}</td>
+                      <td className="px-3 py-2">{item.club}</td>
+                      <td className="px-3 py-2">{item.clubIncome}</td>
+                      <td className="px-3 py-2">{item.status}</td>
                     </tr>
                   ))
                 ) : (
@@ -310,4 +328,4 @@ function MonthlyIncome() {
   );
 }
 
-export default MonthlyIncome;
+export default ClubIncome;
