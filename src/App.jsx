@@ -16,6 +16,7 @@ import BankDetails from "./pages/BankDetails";
 import EditPtofile from "./pages/EditPtofile";
 import DepositHistory from "./component/deposit/DepositHistory";
 import TopupHistory from "./pages/TopupHistory";
+import MonthlyIncome from "./pages/MonthlyIncome";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/editprofile" element={<EditPtofile />} />
           <Route path="/deposithistory" element={<DepositHistory />} />
           <Route path="/topuphistory" element={<TopupHistory />} />
+          <Route path="/Monthlyincome" element={<MonthlyIncome />} />
         </Routes>
       </Router>
     </>
