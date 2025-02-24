@@ -8,6 +8,7 @@ import {
   History
 } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Upi = ({ goBack }) => {
   const [address] = useState("acdtewd...");
@@ -47,9 +48,9 @@ const Upi = ({ goBack }) => {
           <span className="font-semibold text-lg whitespace-nowrap">
             Deposit with UPI
           </span>
-          <div className="flex justify-end">
+          <Link to="/deposithistory" className="flex justify-end">
             <History />
-          </div>
+          </Link>
         </div>
 
         {/* Scrollable Content */}

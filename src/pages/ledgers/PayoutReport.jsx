@@ -6,6 +6,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Datepicker from "tailwind-datepicker-react";
 import Footer from "../../component/Footer";
+import { useNavigate } from "react-router-dom";
 
 function PayoutReport() {
   const [showStart, setShowStart] = useState(false);
@@ -14,6 +15,7 @@ function PayoutReport() {
   const [endDate, setEndDate] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const navigate = useNavigate();
   const options = {
     autoHide: true,
     todayBtn: false,
@@ -209,7 +211,7 @@ function PayoutReport() {
       <div>
         {/* Header (Fixed) */}
         <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-          <button>
+          <button onClick={() => navigate(-1)}>
             <ChevronLeft />
           </button>
           <span className="font-semibold text-lg whitespace-nowrap">

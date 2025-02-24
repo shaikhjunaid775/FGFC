@@ -8,7 +8,7 @@ import Datepicker from "tailwind-datepicker-react";
 import Footer from "../../component/Footer";
 import { useNavigate } from "react-router-dom";
 
-function LevelIncome() {
+function DirectSummary() {
   const [showStart, setShowStart] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
   const [startDate, setStartDate] = useState(null);
@@ -40,11 +40,8 @@ function LevelIncome() {
       id: 1,
       date: "2025-10-12",
       particulars: "Investment Return",
-      LevelIncome: "₹ 1000",
-      deduction: "₹ 1000",
-      totalnetpay: "₹ 1000",
+      monthlyProfit: "₹ 1000",
       slab: "Gold",
-      closingDate: "2025-11-12",
       payoutDate: "2025-11-12",
       status: "Completed"
     },
@@ -52,11 +49,8 @@ function LevelIncome() {
       id: 2,
       date: "2025-09-15",
       particulars: "Monthly Bonus",
-      LevelIncome: "₹ 1500",
-      deduction: "₹ 1500",
-      totalnetpay: "₹ 1500",
+      monthlyProfit: "₹ 1500",
       slab: "Silver",
-      closingDate: "2025-10-15",
       payoutDate: "2025-10-15",
       status: "Pending"
     },
@@ -64,11 +58,8 @@ function LevelIncome() {
       id: 3,
       date: "2025-10-10",
       particulars: "Referral Bonus",
-      LevelIncome: "₹ 2000",
-      deduction: "₹ 2000",
-      totalnetpay: "₹ 2000",
+      monthlyProfit: "₹ 2000",
       slab: "Platinum",
-      closingDate: "2025-11-10",
       payoutDate: "2025-11-10",
       status: "Completed"
     },
@@ -76,11 +67,8 @@ function LevelIncome() {
       id: 4,
       date: "2025-08-22",
       particulars: "Investment Return",
-      LevelIncome: "₹ 2500",
-      deduction: "₹ 2500",
-      totalnetpay: "₹ 2500",
+      monthlyProfit: "₹ 2500",
       slab: "Gold",
-      closingDate: "2025-09-22",
       payoutDate: "2025-09-22",
       status: "Completed"
     },
@@ -88,11 +76,8 @@ function LevelIncome() {
       id: 5,
       date: "2025-11-05",
       particulars: "Monthly Profit",
-      LevelIncome: "₹ 3000",
-      deduction: "₹ 3000",
-      totalnetpay: "₹ 3000",
+      monthlyProfit: "₹ 3000",
       slab: "Diamond",
-      closingDate: "2025-12-05",
       payoutDate: "2025-12-05",
       status: "Pending"
     },
@@ -100,11 +85,8 @@ function LevelIncome() {
       id: 6,
       date: "2025-07-18",
       particulars: "Bonus Reward",
-      LevelIncome: "₹ 3500",
-      deduction: "₹ 3500",
-      totalnetpay: "₹ 3500",
+      monthlyProfit: "₹ 3500",
       slab: "Silver",
-      closingDate: "2025-08-18",
       payoutDate: "2025-08-18",
       status: "Completed"
     },
@@ -112,11 +94,8 @@ function LevelIncome() {
       id: 7,
       date: "2025-06-30",
       particulars: "Profit Share",
-      LevelIncome: "₹ 4000",
-      deduction: "₹ 4000",
-      totalnetpay: "₹ 4000",
+      monthlyProfit: "₹ 4000",
       slab: "Gold",
-      closingDate: "2025-07-30",
       payoutDate: "2025-07-30",
       status: "Pending"
     }
@@ -150,7 +129,7 @@ function LevelIncome() {
     const text = data
       .map(
         (row) =>
-          `${row.id}\t${row.date}\t${row.particulars}\t${row.LevelIncome}\t${row.deduction}\t${row.totalnetpay}\t${row.slab}\t${row.closingDate}\t${row.payoutDate}\t${row.status}`
+          `${row.id}\t${row.date}\t${row.particulars}\t${row.monthlyProfit}\t${row.slab}\t${row.payoutDate}\t${row.status}`
       )
       .join("\n");
     navigator.clipboard.writeText(text);
@@ -175,11 +154,8 @@ function LevelIncome() {
           "Sr",
           "Date & Time",
           "Particulars",
-          "Level Income",
-          "Deduction",
-          "Total Net Pay",
+          "Monthly Profit",
           "Slab",
-          "Closing Date",
           "Payout Date",
           "Status"
         ]
@@ -188,11 +164,8 @@ function LevelIncome() {
         row.id,
         row.date,
         row.particulars,
-        row.LevelIncome,
-        row.deduction,
-        row.totalnetpay,
+        row.monthlyProfit,
         row.slab,
-        row.closingDate,
         row.payoutDate,
         row.status
       ])
@@ -205,20 +178,32 @@ function LevelIncome() {
       <div>
         {/* Header (Fixed) */}
         <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-        <button onClick={() => navigate(-1)}>
+          <button onClick={() => navigate(-1)}>
             <ChevronLeft />
           </button>
           <span className="font-semibold text-lg whitespace-nowrap">
-            Level Income
+            Downline Team
           </span>
         </div>
         <div className="p-4 pb-20">
           <div className="mb-4">
-            <div className="grid grid-cols-2 gap-10">
-              <div className="flex flex-col justify-space p-2 bg-primary text-black rounded-lg primary-gradient">
-                <span className="text-md">Total Earning</span>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="flex flex-col justify-space p-2 bg-primary text-black rounded-lg primary-gradient text-center">
+                <span className="text-md">Total Team</span>
                 <span className="text-2xl font-semibold">
-                  ₹<span id="level-income">5000.00</span>
+                  <span id="level-income">3</span>
+                </span>
+              </div>
+              <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient  text-center">
+                <span className="text-md">Total Active</span>
+                <span className="text-2xl font-semibold">
+                  <span id="level-income">3</span>
+                </span>
+              </div>
+              <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
+                <span className="text-md">Total Inactive</span>
+                <span className="text-2xl font-semibold">
+                  <span id="level-income">5</span>
                 </span>
               </div>
             </div>
@@ -254,33 +239,35 @@ function LevelIncome() {
 
           {/* Date Filter */}
           <div className="mb-4 flex flex-col md:flex-row justify-end items-end gap-4">
-            {/* Start Date */}
-            <div className="relative  md:w-auto w-full">
-              <label className="font-semibold">Start Date: </label>
-              <Datepicker
-                options={options}
-                onChange={(date) => setStartDate(date)}
-                show={showStart}
-                setShow={setShowStart}
-                className="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-              />
-            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {/* Start Date */}
+              <div className="relative  md:w-auto w-full">
+                <label className="font-semibold">Start Date: </label>
+                <Datepicker
+                  options={options}
+                  onChange={(date) => setStartDate(date)}
+                  show={showStart}
+                  setShow={setShowStart}
+                  className="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
+                />
+              </div>
 
-            {/* End Date */}
-            <div className="relative md:w-auto w-full">
-              <label className="font-semibold">End Date: </label>
-              <Datepicker
-                options={options}
-                onChange={(date) => setEndDate(date)}
-                show={showEnd}
-                setShow={setShowEnd}
-                inputClassName="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-              />
+              {/* End Date */}
+              <div className="relative md:w-auto w-full">
+                <label className="font-semibold">End Date: </label>
+                <Datepicker
+                  options={options}
+                  onChange={(date) => setEndDate(date)}
+                  show={showEnd}
+                  setShow={setShowEnd}
+                  inputClassName="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
+                />
+              </div>
             </div>
             {/* Reset Button */}
             <button
               onClick={handleReset}
-              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 h-fit w-full"
+              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 h-fit"
             >
               Reset
             </button>
@@ -294,12 +281,9 @@ function LevelIncome() {
                   <th className="px-3 py-2">Sr</th>
                   <th className="px-3 py-2">date & Time</th>
                   <th className="px-3 py-2">particulars</th>
-                  <th className="px-3 py-2">Level Income</th>
-                  <th className="px-3 py-2">deduction</th>
-                  <th className="px-3 py-2">total net pay</th>
+                  <th className="px-3 py-2">monthly Profit</th>
                   <th className="px-3 py-2">slab</th>
-                  <th className="px-3 py-2">closing Date</th>
-                  <th className="px-3 py-2">payout Date</th>
+                  <th className="px-3 py-2">payoutDate</th>
                   <th className="px-3 py-2">status</th>
                 </tr>
               </thead>
@@ -315,11 +299,8 @@ function LevelIncome() {
                       </td>
                       <td className="px-3 py-2">{item.date}</td>
                       <td className="px-3 py-2">{item.particulars}</td>
-                      <td className="px-3 py-2">{item.LevelIncome}</td>
-                      <td className="px-3 py-2">{item.deduction}</td>
-                      <td className="px-3 py-2">{item.totalnetpay}</td>
+                      <td className="px-3 py-2">{item.monthlyProfit}</td>
                       <td className="px-3 py-2">{item.slab}</td>
-                      <td className="px-3 py-2">{item.closingDate}</td>
                       <td className="px-3 py-2">{item.payoutDate}</td>
                       <td className="px-3 py-2">{item.status}</td>
                     </tr>
@@ -381,4 +362,4 @@ function LevelIncome() {
   );
 }
 
-export default LevelIncome;
+export default DirectSummary;

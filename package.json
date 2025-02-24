@@ -23,11 +23,12 @@
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
     "react-router-dom": "^7.1.5",
+    "react-slick": "^0.30.3",
     "react-tailwindcss-datepicker": "^2.0.0",
     "react-tradingview-embed": "^3.0.6",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.15",
     "tailwind-datepicker-react": "^1.4.3",
-    "tailwindcss": "^4.0.5",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
@@ -35,11 +36,14 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.19.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.8",
     "vite": "^6.1.0"
   }
 }

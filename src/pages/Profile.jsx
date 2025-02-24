@@ -5,6 +5,8 @@ import ReferralCard from "../component/profile/ReferralCard";
 import Wallet from "../component/profile/Wallet";
 
 function Profile() {
+  const isVerified = true; // Change to false for "Unverified"
+  const isActive = true; // Set dynamically based on condition
   return (
     <>
       <div className="absolute w-full -z-100 overflow-hidden h-[150vh]" >
@@ -18,7 +20,7 @@ function Profile() {
           className={`absolute left-40 top-[70%] h-72 w-24 animate-blob rounded-full opacity-45 mix-blend-multiply blur-3xl bg-yellow-1`}
         ></div>
       </div>
-      <ProfileCard />
+      <ProfileCard isVerified={isVerified} isActive={isActive} />
 
       {/* Balance Card */}
       <Wallet />

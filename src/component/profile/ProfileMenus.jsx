@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-
 function ProfileMenus() {
-  
-
   const menuCategories = [
     {
       category: "Profile",
@@ -95,7 +92,7 @@ function ProfileMenus() {
         {
           title: "Compounding Report",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg",
-          url: ""
+          url: "/CompoundingReport"
         },
         {
           title: "Club Income",
@@ -114,11 +111,13 @@ function ProfileMenus() {
       items: [
         {
           title: "Direct Team",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/recruitment_4898334.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/recruitment_4898334.svg",
+          url: "/DirectSummary"
         },
         {
           title: "Downline Team",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/user_4087785.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/user_4087785.svg",
+          url: "/DownlineTeam"
         },
         {
           title: "Help Center",
@@ -150,14 +149,20 @@ function ProfileMenus() {
               <div className="">
                 <div className="">
                   <ul
-                    className="grid  gap-y-5 items-center"
-                    style={{
-                      gridTemplateColumns: `repeat(${category.items.length}, minmax(0, 1fr))`
-                    }}
+                    className={`grid gap-y-5 items-center ${
+                      category.items.length > 4
+                        ? "grid-cols-4"
+                        : category.items.length === 3
+                        ? "grid-cols-3"
+                        : `grid-cols-${category.items.length}`
+                    }`}
                   >
                     {category.items.map((item, itemIndex) => (
                       <li key={itemIndex}>
-                        <Link to={item.url} className="flex flex-col gap-2 items-center text-dark text-center text-xs">
+                        <Link
+                          to={item.url}
+                          className="flex flex-col gap-2 items-center text-dark text-center text-xs"
+                        >
                           <div className="p-2 hover:scale-110 transition-transform duration-300 ease-in-out [background:linear-gradient(45deg,#fff,#fff,#fff)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.50/.48)_40%,_theme(colors.primary)_86%,_theme(colors.primary)_20%,_theme(colors.primary)_94%,_theme(colors.slate.50/.48))_border-box] rounded-full border border-transparent animated-border">
                             <img
                               src={item.icon}
@@ -165,7 +170,7 @@ function ProfileMenus() {
                               className="w-8"
                             />
                           </div>
-                          <span className=" text-xs">{item.title}</span>
+                          <span className="text-xs">{item.title}</span>
                         </Link>
                       </li>
                     ))}
@@ -176,8 +181,6 @@ function ProfileMenus() {
           </motion.div>
         ))}
       </div>
-
-    
     </>
   );
 }

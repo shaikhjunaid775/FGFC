@@ -6,6 +6,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Datepicker from "tailwind-datepicker-react";
 import Footer from "../../component/Footer";
+import { useNavigate } from "react-router-dom";
 
 function CompoundingReport() {
   const [showStart, setShowStart] = useState(false);
@@ -14,6 +15,7 @@ function CompoundingReport() {
   const [endDate, setEndDate] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const navigate = useNavigate();
   const options = {
     autoHide: true,
     todayBtn: false,
@@ -158,11 +160,11 @@ function CompoundingReport() {
       <div>
         {/* Header (Fixed) */}
         <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-          <button>
+          <button onClick={() => navigate(-1)}>
             <ChevronLeft />
           </button>
           <span className="font-semibold text-lg whitespace-nowrap">
-            Level Income
+            Compounding Report
           </span>
         </div>
         <div className="p-4 pb-20">
@@ -207,33 +209,36 @@ function CompoundingReport() {
 
           {/* Date Filter */}
           <div className="mb-4 flex flex-col md:flex-row justify-end items-end gap-4">
-            {/* Start Date */}
-            <div className="relative  md:w-auto w-full">
-              <label className="font-semibold">Start Date: </label>
-              <Datepicker
-                options={options}
-                onChange={(date) => setStartDate(date)}
-                show={showStart}
-                setShow={setShowStart}
-                className="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-              />
+            <div className="grid grid-cols-2 gap-3">
+              {/* Start Date */}
+              <div className="relative  md:w-auto w-full">
+                <label className="font-semibold">Start Date: </label>
+                <Datepicker
+                  options={options}
+                  onChange={(date) => setStartDate(date)}
+                  show={showStart}
+                  setShow={setShowStart}
+                  className="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
+                />
+              </div>
+
+              {/* End Date */}
+              <div className="relative md:w-auto w-full">
+                <label className="font-semibold">End Date: </label>
+                <Datepicker
+                  options={options}
+                  onChange={(date) => setEndDate(date)}
+                  show={showEnd}
+                  setShow={setShowEnd}
+                  inputClassName="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
+                />
+              </div>
             </div>
 
-            {/* End Date */}
-            <div className="relative md:w-auto w-full">
-              <label className="font-semibold">End Date: </label>
-              <Datepicker
-                options={options}
-                onChange={(date) => setEndDate(date)}
-                show={showEnd}
-                setShow={setShowEnd}
-                inputClassName="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-              />
-            </div>
             {/* Reset Button */}
             <button
               onClick={handleReset}
-              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 h-fit"
+              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 h-fit w-full"
             >
               Reset
             </button>

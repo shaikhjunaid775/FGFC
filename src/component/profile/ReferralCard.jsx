@@ -1,5 +1,6 @@
 import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 function ReferralCard() {
   const handleCopy = () => {
@@ -9,6 +10,10 @@ function ReferralCard() {
       .then(() => toast.success("Referal Copied to clipboard!"))
       .catch(() => toast.error("Failed to copy URL"));
   };
+
+  const message = "Hey! Check out this amazing app: https://yourwebsite.com";
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
@@ -42,13 +47,17 @@ function ReferralCard() {
                     ></path>
                   </svg>
                 </span>
-                <span className=" items-center p-3 text-sm font-medium text-center text-dark bg-white rounded-full     flex gap-2 justify-center">
+                <Link
+                  to={whatsappUrl}
+                  target="_blank"
+                  className=" items-center p-3 text-sm font-medium text-center text-dark bg-white rounded-full     flex gap-2 justify-center"
+                >
                   <img
                     className="w-7 h-7 rounded-full whatsapp-image"
                     src="https://fgfcunion.finance/assets/assets/images/WhatsApp.png"
                     alt="Rounded avatar"
                   />
-                </span>
+                </Link>
               </div>
             </div>
           </div>

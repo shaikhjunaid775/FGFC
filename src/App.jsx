@@ -21,6 +21,8 @@ import LevelIncome from "./pages/ledgers/LevelIncome";
 import ClubIncome from "./pages/ledgers/ClubIncome";
 import PayoutReport from "./pages/ledgers/PayoutReport";
 import CompoundingReport from "./pages/ledgers/CompoundingReport";
+import DirectSummary from "./pages/ledgers/DirectSummary";
+import DownlineTeam from "./pages/ledgers/DownlineTeam";
 
 function App() {
   return (
@@ -48,7 +50,10 @@ function App() {
           <Route path="/levelincome" element={<LevelIncome />} />
           <Route path="/clubincome" element={<ClubIncome />} />
           <Route path="/PayoutReport" element={<PayoutReport />} />
-          <Route path="/compoundingReport" element={<CompoundingReport />} />
+          <Route path="/CompoundingReport" element={<CompoundingReport />} />
+          <Route path="/DirectSummary" element={<DirectSummary /> } />
+          <Route path="/DownlineTeam" element={<DownlineTeam /> } />
+          {/* <Route path="/statsCard" element={<StatsCard /> } /> */}
         </Routes>
       </Router>
     </>

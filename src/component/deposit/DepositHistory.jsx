@@ -6,6 +6,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Datepicker from "tailwind-datepicker-react";
 import Footer from "../../component/Footer"
+import { Link } from "react-router-dom";
 
 function DepositHistory() {
   const [showStart, setShowStart] = useState(false);
@@ -152,9 +153,9 @@ function DepositHistory() {
       <div>
         {/* Header (Fixed) */}
         <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-          <button>
+          <Link to="/deposit">
             <ChevronLeft />
-          </button>
+          </Link>
           <span className="font-semibold text-lg whitespace-nowrap">
             Deposit History
           </span>
