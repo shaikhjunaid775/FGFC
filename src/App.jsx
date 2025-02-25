@@ -23,6 +23,8 @@ import PayoutReport from "./pages/ledgers/PayoutReport";
 import CompoundingReport from "./pages/ledgers/CompoundingReport";
 import DirectSummary from "./pages/ledgers/DirectSummary";
 import DownlineTeam from "./pages/ledgers/DownlineTeam";
+import Help from "./pages/Help";
+import Help1 from "./component/help/ArticleBusinessPre";
 
 function App() {
   return (
@@ -49,11 +51,12 @@ function App() {
           <Route path="/monthlyincome" element={<MonthlyIncome />} />
           <Route path="/levelincome" element={<LevelIncome />} />
           <Route path="/clubincome" element={<ClubIncome />} />
-          <Route path="/PayoutReport" element={<PayoutReport />} />
-          <Route path="/CompoundingReport" element={<CompoundingReport />} />
-          <Route path="/DirectSummary" element={<DirectSummary /> } />
-          <Route path="/DownlineTeam" element={<DownlineTeam /> } />
-          {/* <Route path="/statsCard" element={<StatsCard /> } /> */}
+          <Route path="/payoutReport" element={<PayoutReport />} />
+          <Route path="/compoundingReport" element={<CompoundingReport />} />
+          <Route path="/directSummary" element={<DirectSummary />} />
+          <Route path="/downlineTeam" element={<DownlineTeam />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/help/articleBusinessPre" element={<Help1 />} />
         </Routes>
       </Router>
     </>

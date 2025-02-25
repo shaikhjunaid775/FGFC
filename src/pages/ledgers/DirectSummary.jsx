@@ -1,363 +1,685 @@
-import { ChevronLeft } from "lucide-react";
-import { useState } from "react";
-import { CSVLink } from "react-csv";
-import * as XLSX from "xlsx";
-import jsPDF from "jspdf";
+import { useState, useEffect } from "react";
 import "jspdf-autotable";
-import Datepicker from "tailwind-datepicker-react";
-import Footer from "../../component/Footer";
+import { ChevronLeft } from "lucide-react";
+import "jspdf-autotable";
+
 import { useNavigate } from "react-router-dom";
+import Footer from "../../component/Footer";
+import {
+  exportToClipboard,
+  exportToExcel,
+  exportToPDF
+} from "../../utils/ExportUtils";
 
-function DirectSummary() {
-  const [showStart, setShowStart] = useState(false);
-  const [showEnd, setShowEnd] = useState(false);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-
+const DirectSummary = () => {
   const navigate = useNavigate();
-  const options = {
-    autoHide: true,
-    todayBtn: false,
-    clearBtn: true,
-    placement: "start", // Ensures it opens downward
-    theme: {
-      background: "bg-white",
-      text: "text-gray-900",
-      primary: "border border-primary focus:ring-primary", // 👈 Custom border color
-      secondary: "bg-gray-200",
-      disabled: "bg-gray-300"
-    },
-    icons: {
-      prev: () => <span>{"<"}</span>,
-      next: () => <span>{">"}</span>
-    }
-  };
-  const rowsPerPage = 5;
-
-  const data = [
+  // Sample data - replace with your actual data
+  const initialData = [
     {
       id: 1,
-      date: "2025-10-12",
-      particulars: "Investment Return",
-      monthlyProfit: "₹ 1000",
-      slab: "Gold",
-      payoutDate: "2025-11-12",
-      status: "Completed"
+      username: "user001",
+      memberName: "John Doe",
+      currentPackageAmount: 5000,
+      status: "Active",
+      date: "2024-02-20 10:30 AM"
     },
     {
       id: 2,
-      date: "2025-09-15",
-      particulars: "Monthly Bonus",
-      monthlyProfit: "₹ 1500",
-      slab: "Silver",
-      payoutDate: "2025-10-15",
-      status: "Pending"
+      username: "user002",
+      memberName: "Alice Smith",
+      currentPackageAmount: 3000,
+      status: "Inactive",
+      date: "2024-02-21 12:45 PM"
     },
     {
       id: 3,
-      date: "2025-10-10",
-      particulars: "Referral Bonus",
-      monthlyProfit: "₹ 2000",
-      slab: "Platinum",
-      payoutDate: "2025-11-10",
-      status: "Completed"
+      username: "user003",
+      memberName: "Robert Brown",
+      currentPackageAmount: 7000,
+      status: "Active",
+      date: "2024-02-22 03:15 PM"
     },
     {
       id: 4,
-      date: "2025-08-22",
-      particulars: "Investment Return",
-      monthlyProfit: "₹ 2500",
-      slab: "Gold",
-      payoutDate: "2025-09-22",
-      status: "Completed"
+      username: "user004",
+      memberName: "Emma Wilson",
+      currentPackageAmount: 4500,
+      status: "Active",
+      date: "2024-02-23 09:00 AM"
     },
     {
       id: 5,
-      date: "2025-11-05",
-      particulars: "Monthly Profit",
-      monthlyProfit: "₹ 3000",
-      slab: "Diamond",
-      payoutDate: "2025-12-05",
-      status: "Pending"
+      username: "user005",
+      memberName: "Michael Johnson",
+      currentPackageAmount: 6000,
+      status: "Inactive",
+      date: "2024-02-24 04:30 PM"
     },
     {
       id: 6,
-      date: "2025-07-18",
-      particulars: "Bonus Reward",
-      monthlyProfit: "₹ 3500",
-      slab: "Silver",
-      payoutDate: "2025-08-18",
-      status: "Completed"
+      username: "user006",
+      memberName: "Sophia Martinez",
+      currentPackageAmount: 5500,
+      status: "Active",
+      date: "2024-02-25 02:20 PM"
     },
     {
       id: 7,
-      date: "2025-06-30",
-      particulars: "Profit Share",
-      monthlyProfit: "₹ 4000",
-      slab: "Gold",
-      payoutDate: "2025-07-30",
-      status: "Pending"
+      username: "user007",
+      memberName: "James Anderson",
+      currentPackageAmount: 2500,
+      status: "Inactive",
+      date: "2024-02-26 08:10 AM"
+    },
+    {
+      id: 8,
+      username: "user008",
+      memberName: "Olivia Taylor",
+      currentPackageAmount: 7200,
+      status: "Active",
+      date: "2024-02-27 07:45 PM"
+    },
+    {
+      id: 9,
+      username: "user009",
+      memberName: "Daniel Thomas",
+      currentPackageAmount: 4000,
+      status: "Inactive",
+      date: "2024-02-28 11:30 AM"
+    },
+    {
+      id: 10,
+      username: "user010",
+      memberName: "Ava White",
+      currentPackageAmount: 8500,
+      status: "Active",
+      date: "2024-02-29 06:00 PM"
+    },
+    {
+      id: 11,
+      username: "user011",
+      memberName: "William Harris",
+      currentPackageAmount: 3200,
+      status: "Inactive",
+      date: "2024-03-01 01:20 PM"
+    },
+    {
+      id: 12,
+      username: "user012",
+      memberName: "Isabella Clark",
+      currentPackageAmount: 6700,
+      status: "Active",
+      date: "2024-03-02 09:50 AM"
+    },
+    {
+      id: 13,
+      username: "user013",
+      memberName: "Ethan Lewis",
+      currentPackageAmount: 5000,
+      status: "Inactive",
+      date: "2024-03-03 05:15 PM"
+    },
+    {
+      id: 14,
+      username: "user014",
+      memberName: "Mia Walker",
+      currentPackageAmount: 7600,
+      status: "Active",
+      date: "2024-03-04 02:40 PM"
+    },
+    {
+      id: 15,
+      username: "user015",
+      memberName: "Alexander Hall",
+      currentPackageAmount: 2800,
+      status: "Inactive",
+      date: "2024-03-05 10:00 AM"
     }
   ];
 
-  const isWithinDateRange = (date) => {
-    if (!startDate && !endDate) return true;
-    const dateObj = new Date(date);
-    const start = startDate ? new Date(startDate) : null;
-    const end = endDate ? new Date(endDate) : null;
+  const columns = Object.keys(initialData[0] || {});
 
-    return (!start || dateObj >= start) && (!end || dateObj <= end);
-  };
+  // State for filtered data, selected rows, and search term
+  const [data, setData] = useState(initialData);
+  const [filteredData, setFilteredData] = useState(initialData);
+  const [selectedRows, setSelectedRows] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dateRange, setDateRange] = useState({
+    startDate: "",
+    endDate: ""
+  });
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    compoundingTenure: "All",
+    status: "All"
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Adjust as needed
 
-  const filteredData = data.filter((item) => isWithinDateRange(item.date));
-  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
+  // Calculate total pages
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  // Get data for the current page
   const paginatedData = filteredData.slice(
-    startIndex,
-    startIndex + rowsPerPage
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
-  const handleReset = () => {
-    setStartDate(null);
-    setEndDate(null);
-    setCurrentPage(1); // Update parent state if applicable
+  // Get unique compoundingTenures and statuses for filters
+  // const uniquecompoundingTenures = [
+  //   "All",
+  //   ...new Set(data.map((item) => item.compoundingTenure))
+  // ];
+  const uniqueStatuses = ["All", ...new Set(data.map((item) => item.status))];
+
+  // Format datetime string for comparison (extract just the date part)
+  const getDateForComparison = (dateTimeString) => {
+    return dateTimeString.split(" ")[0];
   };
 
-  // Copy to Clipboard
-  const copyToClipboard = () => {
-    const text = data
-      .map(
-        (row) =>
-          `${row.id}\t${row.date}\t${row.particulars}\t${row.monthlyProfit}\t${row.slab}\t${row.payoutDate}\t${row.status}`
-      )
-      .join("\n");
-    navigator.clipboard.writeText(text);
-    alert("Data copied to clipboard!");
-  };
+  // Format date for display
+  const formatDateForDisplay = (dateString) => {
+    if (!dateString) return "";
 
-  // Export to Excel
-  const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    XLSX.writeFile(workbook, "table_data.xlsx");
-  };
-
-  // Export to PDF
-  const exportToPDF = () => {
-    const doc = new jsPDF();
-    doc.text("Table Data", 20, 10);
-    doc.autoTable({
-      head: [
-        [
-          "Sr",
-          "Date & Time",
-          "Particulars",
-          "Monthly Profit",
-          "Slab",
-          "Payout Date",
-          "Status"
-        ]
-      ],
-      body: data.map((row) => [
-        row.id,
-        row.date,
-        row.particulars,
-        row.monthlyProfit,
-        row.slab,
-        row.payoutDate,
-        row.status
-      ])
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
     });
-    doc.save("table_data.pdf");
+  };
+
+  // Handle search and filter changes
+  useEffect(() => {
+    let result = data;
+
+    // Apply compoundingTenure filter
+    if (filters.compoundingTenure !== "All") {
+      result = result.filter(
+        (item) => item.compoundingTenure === filters.compoundingTenure
+      );
+    }
+
+    // Apply status filter
+    if (filters.status !== "All") {
+      result = result.filter((item) => item.status === filters.status);
+    }
+
+    // Apply date range filter
+    if (dateRange.startDate) {
+      result = result.filter(
+        (item) => getDateForComparison(item.date) >= dateRange.startDate
+      );
+    }
+
+    if (dateRange.endDate) {
+      result = result.filter(
+        (item) => getDateForComparison(item.date) <= dateRange.endDate
+      );
+    }
+
+    // Apply search term
+    if (searchTerm) {
+      const lowercasedSearchTerm = searchTerm.toLowerCase();
+      result = result.filter((item) =>
+        Object.values(item).some((value) =>
+          value.toString().toLowerCase().includes(lowercasedSearchTerm)
+        )
+      );
+    }
+
+    setFilteredData(result);
+  }, [data, filters, dateRange, searchTerm]);
+
+  // Handle row selection
+  const handleSelectRow = (id) => {
+    setSelectedRows((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  // Handle select all
+  const handleSelectAll = () => {
+    const allIds = filteredData.map((item) => item.id);
+    const areAllSelected = allIds.every((id) => selectedRows[id]);
+
+    const newSelectedRows = { ...selectedRows };
+    allIds.forEach((id) => {
+      newSelectedRows[id] = !areAllSelected;
+    });
+
+    setSelectedRows(newSelectedRows);
+  };
+
+  // Handle filter changes
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  // Handle date range changes
+  const handleDateRangeChange = (type, value) => {
+    setDateRange((prev) => ({
+      ...prev,
+      [type]: value
+    }));
+  };
+
+  // Apply date range
+  const applyDateRange = () => {
+    setIsDatePickerOpen(false);
+  };
+
+  // Clear date range
+  const clearDateRange = () => {
+    setDateRange({
+      startDate: "",
+      endDate: ""
+    });
+  };
+
+  // Reset all filters
+  const resetFilters = () => {
+    setFilters({
+      compoundingTenure: "All",
+      status: "All"
+    });
+    setDateRange({
+      startDate: "",
+      endDate: ""
+    });
+    setSearchTerm("");
+  };
+
+  // Get date range display text
+  const getDateRangeText = () => {
+    if (dateRange.startDate && dateRange.endDate) {
+      return `${formatDateForDisplay(
+        dateRange.startDate
+      )} - ${formatDateForDisplay(dateRange.endDate)}`;
+    } else if (dateRange.startDate) {
+      return `From ${formatDateForDisplay(dateRange.startDate)}`;
+    } else if (dateRange.endDate) {
+      return `Until ${formatDateForDisplay(dateRange.endDate)}`;
+    }
+    return "Select date range";
   };
 
   return (
     <>
-      <div>
-        {/* Header (Fixed) */}
-        <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-          <button onClick={() => navigate(-1)}>
-            <ChevronLeft />
+      {/* Header (Fixed) */}
+      <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
+        <button onClick={() => navigate(-1)}>
+          <ChevronLeft />
+        </button>
+        <span className="font-semibold text-lg whitespace-nowrap">
+          Direct Summary Report
+        </span>
+      </div>
+      <div className="space-y-4 p-4 bg-gray-50 rounded-xl pb-20">
+        {/* Export Buttons */}
+        <div className="flex justify-end gap-2 mb-4">
+          <button
+            type="button"
+            onClick={() =>
+              exportToClipboard(initialData, selectedRows, columns)
+            }
+            className="text-white bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-gray-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          >
+            Copy
           </button>
-          <span className="font-semibold text-lg whitespace-nowrap">
-            Direct Summary
-          </span>
+          <button
+            onClick={() =>
+              exportToExcel(
+                initialData,
+                selectedRows,
+                columns,
+                "table_data.csv"
+              )
+            }
+            type="button"
+            className="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          >
+            Excel
+          </button>
+          <button
+            onClick={() =>
+              exportToPDF(
+                initialData,
+                selectedRows,
+                columns,
+                "Exported Table Data",
+                "table_data.pdf"
+              )
+            }
+            type="button"
+            className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          >
+            PDF
+          </button>
         </div>
-        <div className="p-4 pb-20">
-          <div className="mb-4">
-            <div className="grid grid-cols-2 gap-7">
-              <div className="flex flex-col justify-space p-2 bg-primary text-black rounded-lg primary-gradient text-center">
-                <span className="text-md">Total Earning</span>
-                <span className="text-2xl font-semibold">
-                  ₹<span id="level-income">5000.00</span>
-                </span>
-              </div>
-              <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient  text-center">
-                <span className="text-md">Total Active Member</span>
-                <span className="text-2xl font-semibold">
-                  <span id="level-income">3</span>
-                </span>
-              </div>
-              <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
-                <span className="text-md">Total Inactive Member</span>
-                <span className="text-2xl font-semibold">
-                  <span id="level-income">5</span>
-                </span>
-              </div>
+
+        {/* Search and Filters */}
+        <div className="flex flex-col gap-4">
+          {/* Search */}
+          <div className="relative w-full md:w-64">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="absolute left-3 top-2.5 text-gray-400">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
             </div>
           </div>
-          {/* Export Buttons */}
-          <div className="flex gap-2 mb-4">
-            <button
-              onClick={copyToClipboard}
-              className="px-4 py-2 bg-gray-500 text-white rounded-md"
-            >
-              Copy
-            </button>
-            <CSVLink
-              data={filteredData}
-              filename="table_data.csv"
-              className="px-4 py-2 bg-green-500 text-white rounded-md"
-            >
-              CSV
-            </CSVLink>
-            <button
-              onClick={exportToExcel}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md"
-            >
-              Excel
-            </button>
-            <button
-              onClick={exportToPDF}
-              className="px-4 py-2 bg-red-500 text-white rounded-md"
-            >
-              PDF
-            </button>
+
+          {/* Filter Section */}
+          <div className="grid grid-cols-2 gap-4 items-end">
+            {/* compoundingTenure Filter */}
+            {/* <div>
+              <label className="block mb-1 text-sm font-medium">
+                compoundingTenure:
+              </label>
+              <select
+                className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                value={filters.compoundingTenure}
+                onChange={(e) =>
+                  handleFilterChange("compoundingTenure", e.target.value)
+                }
+              >
+                {uniquecompoundingTenures.map((compoundingTenure) => (
+                  <option key={compoundingTenure} value={compoundingTenure}>
+                    {compoundingTenure}
+                  </option>
+                ))}
+              </select>
+            </div> */}
+
+            {/* Date Range Picker */}
+            <div className="relative">
+              <label className="block mb-1 text-sm font-medium">
+                Date Range:
+              </label>
+              <button
+                className="flex items-center border rounded-lg p-2 min-w-48 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+              >
+                <svg
+                  className="w-5 h-5 mr-2 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <span className="text-gray-700 mr-2 text-sm">
+                  {getDateRangeText()}
+                </span>
+                {(dateRange.startDate || dateRange.endDate) && (
+                  <button
+                    className="ml-auto text-gray-400 hover:text-gray-600"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      clearDateRange();
+                    }}
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      ></path>
+                    </svg>
+                  </button>
+                )}
+              </button>
+
+              {isDatePickerOpen && (
+                <div className="absolute z-10 mt-1 bg-white rounded-lg shadow-lg border p-4 w-72">
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Start Date:
+                      </label>
+                      <input
+                        type="date"
+                        className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={dateRange.startDate}
+                        onChange={(e) =>
+                          handleDateRangeChange("startDate", e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        End Date:
+                      </label>
+                      <input
+                        type="date"
+                        className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={dateRange.endDate}
+                        onChange={(e) =>
+                          handleDateRangeChange("endDate", e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="flex space-x-2">
+                      <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors flex-1"
+                        onClick={applyDateRange}
+                      >
+                        Apply
+                      </button>
+                      <button
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors"
+                        onClick={clearDateRange}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Status Filter */}
+            <div>
+              <label className="block mb-1 text-sm font-medium">Status:</label>
+              <select
+                className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                value={filters.status}
+                onChange={(e) => handleFilterChange("status", e.target.value)}
+              >
+                {uniqueStatuses.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
+            </div>
+
           </div>
-
-          {/* Date Filter */}
-          <div className="mb-4 flex flex-col md:flex-row justify-end items-end gap-4">
-            {/* Start Date */}
-            <div className="relative  md:w-auto w-full">
-              <label className="font-semibold">Start Date: </label>
-              <Datepicker
-                options={options}
-                onChange={(date) => setStartDate(date)}
-                show={showStart}
-                setShow={setShowStart}
-                className="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-              />
-            </div>
-
-            {/* End Date */}
-            <div className="relative md:w-auto w-full">
-              <label className="font-semibold">End Date: </label>
-              <Datepicker
-                options={options}
-                onChange={(date) => setEndDate(date)}
-                show={showEnd}
-                setShow={setShowEnd}
-                inputClassName="bg-white text-gray-900 border border-primary p-2 rounded-md w-full" // 👈 Custom Input Styles
-              />
-            </div>
             {/* Reset Button */}
             <button
-              onClick={handleReset}
-              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 h-fit"
+              className=" bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors"
+              onClick={resetFilters}
             >
-              Reset
+              Reset Filters
             </button>
-          </div>
+        </div>
 
-          {/* Table */}
-          <div className="relative overflow-x-auto rounded-xl bg-white shadow-lg ">
-            <table className="w-full text-sm text-left text-gray-500">
-              <thead className="text-gray-700 bg-gradient-to-r from-primary to-secondary">
-                <tr className="text-center whitespace-nowrap capitalize">
-                  <th className="px-3 py-2">Sr</th>
-                  <th className="px-3 py-2">date & Time</th>
-                  <th className="px-3 py-2">particulars</th>
-                  <th className="px-3 py-2">monthly Profit</th>
-                  <th className="px-3 py-2">slab</th>
-                  <th className="px-3 py-2">payoutDate</th>
-                  <th className="px-3 py-2">status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedData.length > 0 ? (
-                  paginatedData.map((item, index) => (
-                    <tr
-                      key={item.id}
-                      className="even:bg-gray-50 odd:bg-[#fdf8ea] border-b last:border-0 text-center whitespace-nowrap"
-                    >
-                      <td className="px-3 py-2 font-bold">
-                        {startIndex + index + 1}
-                      </td>
-                      <td className="px-3 py-2">{item.date}</td>
-                      <td className="px-3 py-2">{item.particulars}</td>
-                      <td className="px-3 py-2">{item.monthlyProfit}</td>
-                      <td className="px-3 py-2">{item.slab}</td>
-                      <td className="px-3 py-2">{item.payoutDate}</td>
-                      <td className="px-3 py-2">{item.status}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="5" className="text-center py-4 text-gray-500">
-                      No records found.
+        {/* Active Filters Summary */}
+        {(filters.compoundingTenure !== "All" ||
+          filters.status !== "All" ||
+          dateRange.startDate ||
+          dateRange.endDate ||
+          searchTerm) && (
+          <div className="text-sm bg-blue-50 p-3 rounded-lg flex items-center justify-between">
+            <div>
+              <span className="font-semibold">Active filters:</span>
+              {filters.compoundingTenure !== "All" && (
+                <span className="ml-2 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                  {filters.compoundingTenure}
+                </span>
+              )}
+              {filters.status !== "All" && (
+                <span className="ml-2 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                  {filters.status}
+                </span>
+              )}
+              {(dateRange.startDate || dateRange.endDate) && (
+                <span className="ml-2 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                  Date: {getDateRangeText()}
+                </span>
+              )}
+              {searchTerm && (
+                <span className="ml-2 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                  Search: "{searchTerm}"
+                </span>
+              )}
+            </div>
+            <div className="text-xs text-gray-500">
+              Showing {filteredData.length} of {data.length} entries
+            </div>
+          </div>
+        )}
+
+        {/* Table */}
+        <div className="relative overflow-x-auto rounded-xl bg-white shadow-lg">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-gray-700  bg-gradient-to-r from-primary to-secondary">
+              <tr className="text-center whitespace-nowrap capitalize">
+                <th className="px-3 py-2">
+                  <input
+                    type="checkbox"
+                    checked={
+                      filteredData.length > 0 &&
+                      filteredData.every((item) => selectedRows[item.id])
+                    }
+                    onChange={handleSelectAll}
+                    className="w-4 h-4"
+                  />
+                </th>
+                <th className="px-3 py-2">Sr</th>
+                <th className="px-3 py-2">registration Date Time</th>
+                <th className="px-3 py-2">username</th>
+                <th className="px-3 py-2">member Name</th>
+                <th className="px-3 py-2">current Package Amount</th>
+                <th className="px-3 py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedData.length > 0 ? (
+                paginatedData.map((item, index) => (
+                  <tr
+                    key={item.id}
+                    className="even:bg-gray-50 odd:bg-[#fdf8ea] border-b last:border-0 text-center whitespace-nowrap"
+                  >
+                    <td className="px-3 py-2">
+                      <input
+                        type="checkbox"
+                        checked={!!selectedRows[item.id]}
+                        onChange={() => handleSelectRow(item.id)}
+                        className="w-4 h-4"
+                      />
+                    </td>
+                    <td className="px-3 py-2 font-bold">
+                      {(currentPage - 1) * itemsPerPage + index + 1}
+                    </td>
+                    <td className="px-3 py-2">{item.date}</td>
+                    <td className="px-3 py-2">{item.username}</td>
+                    <td className="px-3 py-2">{item.memberName}</td>
+                    <td className="px-3 py-2">{item.currentPackageAmount}</td>
+                    <td className="px-3 py-2">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          item.status === "Active"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {item.status}
+                      </span>
                     </td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Pagination */}
-          {filteredData.length > rowsPerPage && (
-            <div className="flex justify-end items-center mt-4 gap-2">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="px-3 py-2 bg-primary border border-primary text-black rounded-lg disabled:bg-primary/5"
-              >
-                Previous
-              </button>
-
-              {/* Page Numbers */}
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`px-3 py-2 rounded-md ${
-                      currentPage === page
-                        ? "bg-primary text-white"
-                        : "bg-gray-200"
-                    }`}
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="7"
+                    className="px-3 py-6 text-center text-gray-500"
                   >
-                    {page}
-                  </button>
-                )
+                    No records found matching your filters
+                  </td>
+                </tr>
               )}
+            </tbody>
+          </table>
 
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className="px-3 py-2 bg-primary border border-primary text-black rounded-lg disabled:bg-primary/5"
-              >
-                Next
-              </button>
-            </div>
-          )}
+          {/* Pagination Controls */}
+          <div className="flex justify-between items-center p-4">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1 bg-primary text-gray-700 rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span className="text-gray-700">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 bg-primary text-gray-700 rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
+        {/* Selected items summary */}
+        <div className="text-sm text-gray-600">
+          Selected: {Object.values(selectedRows).filter(Boolean).length} of{" "}
+          {filteredData.length} items
         </div>
       </div>
       <Footer />
     </>
   );
-}
+};
 
 export default DirectSummary;

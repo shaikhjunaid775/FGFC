@@ -92,7 +92,7 @@ function ProfileMenus() {
         {
           title: "Compounding Report",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg",
-          url: "/CompoundingReport"
+          url: "/compoundingReport"
         },
         {
           title: "Club Income",
@@ -102,7 +102,7 @@ function ProfileMenus() {
         {
           title: "Payout Report",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/gift_8100419.svg",
-          url: "/PayoutReport"
+          url: "/payoutReport"
         }
       ]
     },
@@ -112,16 +112,17 @@ function ProfileMenus() {
         {
           title: "Direct Team",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/recruitment_4898334.svg",
-          url: "/DirectSummary"
+          url: "/directSummary"
         },
         {
           title: "Downline Team",
           icon: "https://fgfcunion.finance/assets/assets/images/svg/user_4087785.svg",
-          url: "/DownlineTeam"
+          url: "/downlineTeam"
         },
         {
           title: "Help Center",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/help.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/help.svg",
+          url: "/help"
         }
       ]
     }

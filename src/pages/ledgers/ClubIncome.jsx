@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import "jspdf-autotable";
 import { ChevronLeft } from "lucide-react";
-import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 
 import { useNavigate } from "react-router-dom";
 import Footer from "../../component/Footer";
+import {
+  exportToClipboard,
+  exportToExcel,
+  exportToPDF
+} from "../../utils/ExportUtils";
 
 const ClubIncome = () => {
   const navigate = useNavigate();
@@ -101,85 +105,7 @@ const ClubIncome = () => {
     }
   ];
 
-  const exportSelectedToClipboard = () => {
-    const selectedData = filteredData.filter((item) => selectedRows[item.id]);
-
-    if (selectedData.length === 0) {
-      alert("No rows selected.");
-      return;
-    }
-
-    const textToCopy = selectedData
-      .map(
-        (item) =>
-          `${item.date}, ${item.particulars}, ${item.club}, ${item.clubIncome}, ${item.status}`
-      )
-      .join("\n");
-
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        alert("Selected data copied to clipboard!");
-      })
-      .catch((err) => {
-        console.error("Failed to copy:", err);
-      });
-  };
-
-  const exportSelectedToExcel = () => {
-    const selectedData = filteredData.filter((item) => selectedRows[item.id]);
-
-    if (selectedData.length === 0) {
-      alert("No rows selected.");
-      return;
-    }
-
-    const header = "Date,Particulars,Club,Income,Status\n";
-    const csvData = selectedData
-      .map(
-        (item) =>
-          `${item.date},${item.particulars},${item.club},${item.clubIncome},${item.status}`
-      )
-      .join("\n");
-
-    const blob = new Blob([header + csvData], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "selected_data.csv";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const exportSelectedToPDF = () => {
-    const selectedData = filteredData.filter((item) => selectedRows[item.id]);
-
-    if (selectedData.length === 0) {
-      alert("No rows selected.");
-      return;
-    }
-
-    const doc = new jsPDF();
-    doc.text("Selected Club Income Data", 10, 10);
-
-    const tableColumn = ["Date", "Particulars", "Club", "Income", "Status"];
-    const tableRows = selectedData.map((item) => [
-      item.date,
-      item.particulars,
-      item.club,
-      item.clubIncome,
-      item.status
-    ]);
-
-    doc.autoTable({
-      head: [tableColumn],
-      body: tableRows
-    });
-
-    doc.save("selected_data.pdf");
-  };
+  const columns = Object.keys(initialData[0] || {});
 
   // State for filtered data, selected rows, and search term
   const [data, setData] = useState(initialData);
@@ -321,7 +247,7 @@ const ClubIncome = () => {
   // Reset all filters
   const resetFilters = () => {
     setFilters({
-      club: "All",
+      level: "All",
       status: "All"
     });
     setDateRange({
@@ -353,7 +279,7 @@ const ClubIncome = () => {
           <ChevronLeft />
         </button>
         <span className="font-semibold text-lg whitespace-nowrap">
-          Compounding Report
+          Club Income Report
         </span>
       </div>
       <div className="space-y-4 p-4 bg-gray-50 rounded-xl pb-20">
@@ -361,22 +287,39 @@ const ClubIncome = () => {
         <div className="flex justify-end gap-2 mb-4">
           <button
             type="button"
-            onClick={exportSelectedToClipboard}
-            className="text-white bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-gray-500/50   font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            onClick={() =>
+              exportToClipboard(initialData, selectedRows, columns)
+            }
+            className="text-white bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-gray-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
             Copy
           </button>
           <button
-            onClick={exportSelectedToExcel}
+            onClick={() =>
+              exportToExcel(
+                initialData,
+                selectedRows,
+                columns,
+                "table_data.csv"
+              )
+            }
             type="button"
-            className="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br  focus:outline-none  shadow-lg shadow-blue-500/50   font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            className="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
             Excel
           </button>
           <button
-            onClick={exportSelectedToPDF}
+            onClick={() =>
+              exportToPDF(
+                initialData,
+                selectedRows,
+                columns,
+                "Exported Table Data",
+                "table_data.pdf"
+              )
+            }
             type="button"
-            className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br  focus:outline-none shadow-lg shadow-red-500/50   font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
             PDF
           </button>
