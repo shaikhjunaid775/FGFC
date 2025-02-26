@@ -23,7 +23,7 @@ const Footer = () => {
         </svg>
         <span className="leading-none text-black/50 peer-checked/expand:text-primary font-semibold">Home</span>
       </Link>
-      <Link to="https://fgfcmarkets.com/m/login_new"
+      <Link to=""
         className=" relative w-full  p-2 ease-in-out duration-300 border-solid border-black/10  group flex flex-col gap-1 items-center justify-center text-black rounded-xl"
       >
         <input

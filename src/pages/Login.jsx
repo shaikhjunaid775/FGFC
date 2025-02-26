@@ -1,14 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo/logo-dark.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { AuthContext } from "../App"; // Import the AuthContext
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const auth = useContext(AuthContext); // Use the auth context
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -17,13 +19,36 @@ function Login() {
     const validUsername = "admin";
     const validPassword = "password123";
 
-    if (username === validUsername && password === validPassword) {
-      navigate("/dashboard", { state: { message: "Login Successful!" } }); // Redirect with state
-    } else if (username === "" || password === "") {
+    // Retrieve stored user data from local storage
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+
+    if (!username || !password) {
       toast.error("Please fill in all fields");
-    } else {
-      toast.error("Username or Password is incorrect!");
+      return;
     }
+
+    // Check against hardcoded credentials
+    if (username === validUsername && password === validPassword) {
+      auth.login({ username: username });
+      navigate("/dashboard", { state: { message: "Login Successful!" } });
+      toast.success("Login successful!");
+      return;
+    }
+
+    // Check against stored user credentials from local storage
+    if (
+      storedUserData &&
+      username === storedUserData.username &&
+      password === storedUserData.password
+    ) {
+      auth.login({ username: username });
+      navigate("/dashboard", { state: { message: "Login Successful!" } });
+      toast.success("Login successful!");
+      return;
+    }
+
+    // If no match is found
+    toast.error("Username or Password is incorrect!");
   };
 
   return (

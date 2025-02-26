@@ -1,12 +1,16 @@
 import { Power } from "lucide-react";
 import { useState } from "react";
+import { useContext } from "react";
 import logo from "../assets/images/logo/logo-white.png";
 import user from "../assets/images/user.png";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../App";
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const Navigate = useNavigate();
+  const auth = useContext(AuthContext);
+  const { username } = auth; // Destructure username from auth context
 
   const [image, setImage] = useState(null);
 
@@ -24,7 +28,8 @@ function Header() {
 
   const confirmLogout = () => {
     setIsModalOpen(false);
-    Navigate("/login"); // Navigate after confirmation
+    auth.logout();
+    Navigate("/login");
   };
 
   const isActive = true; // Change this to false to test inactive state
@@ -56,14 +61,14 @@ function Header() {
               onClick={handleLogout}
               className="p-2 bg-white rounded-full transition-colors"
             >
-              <Power className="w-5 h-5 text-red-500" strokeWidth={2.5} />
+              <Power className="w-4 h-4 text-red-500" strokeWidth={2.5} />
             </button>
           </div>
         </div>
         <div className="flex justify-between">
           <div className="flex flex-col ">
             <h2 className="text-lg font-medium text-white">
-              Good Afternoon, FGFC19
+              Good Afternoon, {username}
             </h2>
             {/* <span className="flex items-center gap-1.5 px-2 py-0.5 bg-white backdrop-blur-sm rounded-full text-[10px] text-green-700 w-fit">
               Active On: 2024-12-10 20:59:02

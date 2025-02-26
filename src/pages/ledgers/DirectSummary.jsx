@@ -417,7 +417,7 @@ const DirectSummary = () => {
                 Date Range:
               </label>
               <button
-                className="flex items-center border rounded-lg p-2 min-w-48 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex items-center border rounded-lg p-2  bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
               >
                 <svg

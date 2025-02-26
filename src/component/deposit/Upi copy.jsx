@@ -40,14 +40,35 @@ const Upi = ({ goBack, amount }) => {
           <button onClick={goBack}>
             <ChevronLeft />
           </button>
-          <span className="font-semibold text-md whitespace-nowrap">
+          <span className="font-semibold text-lg whitespace-nowrap">
             Deposit with UPI
           </span>
           <Link to="/deposithistory" className="flex justify-end">
             <History />
           </Link>
         </div>
-        <div className="max-w-md mx-3 my-3">
+        <div className="max-w-md mx-3">
+          {/* Top section with currency and network */}
+          <div className="bg-amber-50 border border-yellow-300 rounded-lg p-4 my-3">
+            <div className="flex justify-between">
+              <div>
+                <p className="text-sm text-gray-700 mb-1">Deposit currency</p>
+                <div className="flex items-center bg-white p-2 rounded">
+                  <div className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center mr-2">
+                    <span className="text-white text-xs font-bold">T</span>
+                  </div>
+                  <span className="font-medium">USDT</span>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm text-gray-700 mb-1">Network</p>
+                <div className="bg-white p-2 rounded">
+                  <span className="font-medium">TRC 20</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Main deposit form */}
           <div className="bg-amber-50 border border-yellow-300  rounded-lg p-4 ">
             <div className="flex justify-center">
@@ -66,7 +87,7 @@ const Upi = ({ goBack, amount }) => {
                   className="truncate max-w-[95%] text-sm"
                   title="TDCp7KWGIHqN4nWwkFUdphjHUMTH3Lrvt"
                 >
-                  TDCp7KWGIHqN4nWwkFUdphjHUMTH3Lrvtasasasas
+                  TDCp7KWGIHqN4nWwkFUdphjHUMTH3Lrvt
                 </span>
                 <svg
                   onClick={handleCopyAddress}
@@ -91,6 +112,10 @@ const Upi = ({ goBack, amount }) => {
             </div>
 
             <div className="mb-4">
+              <p className="text-sm">
+                You have to pay :{" "}
+                <span className="text-xl font-bold">${amount}</span>
+              </p>
               <p className="text-sm">
                 Amount of Deposit (₹) :{" "}
                 <span className="text-xl font-bold">{amount}</span>
@@ -131,7 +156,7 @@ const Upi = ({ goBack, amount }) => {
           </div>
 
           <div className="mt-4 text-yellow-600 font-medium">
-            Steps for UPI Deposit:
+            Steps for USDT Deposit:
           </div>
         </div>
       </motion.div>

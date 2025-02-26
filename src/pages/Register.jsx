@@ -9,6 +9,8 @@ function Register() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
+    fullname: "",
+    mobile: "",
     country: "",
     email: "",
     password: "",
@@ -19,6 +21,19 @@ function Register() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    if (name === "mobile") {
+      // Allow only digits and limit to 10 characters
+      if (!/^\d*$/.test(value) || value.length > 10) {
+        return;
+      }
+    }
+    if (name === "username") {
+      // Prevent spaces in the username
+      if (/\s/.test(value)) {
+        toast.error("Username should not contain spaces");
+        return;
+      }
+    }
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value
@@ -27,20 +42,39 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const passwordRegex = /^(?=.*[A-Za-z]).{7,}$/; // Ensures at least one letter and a minimum length of 7
+
+    if (!passwordRegex.test(formData.password)) {
+      toast.error(
+        "Password must be at least 7 characters long and contain at least one alphabetic letter"
+      );
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
+
     if (!formData.termsAccepted) {
       toast.error("You must accept the terms and conditions");
       return;
     }
-    console.log("Form submitted", formData);
+
+    // Store form data in local storage (excluding the password for security)
+    const { ...userData } = formData;
+    localStorage.setItem("userData", JSON.stringify(userData));
+
+    console.log(formData);
+    toast.success("Form submitted and data stored successfully");
   };
 
   const isFormValid = () => {
     return (
       formData.username &&
+      formData.fullname &&
+      formData.mobile &&
       formData.country &&
       formData.email &&
       formData.password &&
@@ -87,6 +121,45 @@ function Register() {
                         onChange={handleChange}
                         placeholder="Enter your username"
                         className="block w-full p-3 py-2.5 rounded-full bg-gray-200  text-sm border border-primary focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <div>
+                    <div className="flex justify-between">
+                      <label className="text-sm text-muted-foreground  text-black pb-1">
+                        Fullname
+                      </label>
+                    </div>
+                    <div className=" relative   duration-200">
+                      <input
+                        type="text"
+                        name="fullname"
+                        value={formData.fullname}
+                        onChange={handleChange}
+                        placeholder="Enter your fullname"
+                        className="block w-full p-3 py-2.5 rounded-full bg-gray-200  text-sm border border-primary focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <div>
+                    <div className="flex justify-between">
+                      <label className="text-sm text-muted-foreground  text-black pb-1">
+                        Mobile Number
+                      </label>
+                    </div>
+                    <div className=" relative   duration-200">
+                      <input
+                        type="text" // Use "text" instead of "number" to prevent issues with leading zeros
+                        name="mobile"
+                        value={formData.mobile}
+                        onChange={handleChange}
+                        placeholder="Enter your mobile number"
+                        maxLength="10" // Restricts input to 10 characters
+                        className="block w-full p-3 py-2.5 rounded-full bg-gray-200 text-sm border border-primary focus:border-primary"
                       />
                     </div>
                   </div>

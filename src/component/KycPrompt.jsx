@@ -6,7 +6,7 @@ function KycPrompt({ isVerified }) {
     <>
       <Link to="/kyc">
         <div className="px-5">
-          <div className="flex items-center justify-between  p-2 rounded-xl  w-full bg-white  ">
+          <div className="flex items-center justify-between  p-2 rounded-2xl  w-full bg-white  ">
             <span className="text-black font-medium">KYC</span>
             <div className="flex items-center">
               <div
@@ -15,7 +15,7 @@ function KycPrompt({ isVerified }) {
                 }`}
               >
                 {isVerified ? <Check size={14} /> : <X size={14} />}
-                {isVerified ? "Verified" : "Unverified"}
+                {isVerified ? "Approved" : "Pending"}
               </div>
               <ChevronRight />
             </div>

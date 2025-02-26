@@ -5,23 +5,23 @@ import Footer from "../component/Footer";
 
 const links = [
   {
-    href: "https://fgfcunion.finance/Main/articleBusinessPre",
+    href: "/help/articleBusinessPre",
     text: "FGFC Business Presentation"
   },
   {
-    href: "https://fgfcunion.finance/Main/articleLoginReg",
+    href: "/help/articleLoginReg",
     text: "How to Register & Login?"
   },
   {
-    href: "https://fgfcunion.finance/Main/articleDepositUsdt",
+    href: "/help/articleDepositUsdt",
     text: "How to deposit funds In USDT?"
   },
   {
-    href: "https://fgfcunion.finance/Main/articleDepositUpi",
+    href: "/help/articleDepositUpi",
     text: "How to deposit funds In UPI?"
   },
   {
-    href: "https://fgfcunion.finance/Main/articleDepositBank",
+    href: "/help/articleDepositBank",
     text: "How to deposit funds In Bank?"
   }
 ];

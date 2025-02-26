@@ -30,7 +30,7 @@ function Home() {
     <>
       <Toaster />
       <Blob />
-      <div className="h-screen">
+      <div className="pb-16">
         <Header />
         <TickerTape />
         {!isVerified ? <KycPrompt isVerified={isVerified} /> : null}

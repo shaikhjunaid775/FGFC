@@ -1,120 +1,30 @@
-import { useState, useEffect } from "react";
-import "jspdf-autotable";
-import { ChevronLeft } from "lucide-react";
-import "jspdf-autotable";
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft } from 'lucide-react';
 
-import { useNavigate } from "react-router-dom";
-import Footer from "../../component/Footer";
-import {
-  exportToClipboard,
-  exportToExcel,
-  exportToPDF
-} from "../../utils/ExportUtils";
-
-const LevelIncome = () => {
-  const navigate = useNavigate();
-  // Sample data - replace with your actual data
+const DepositHistory = () => {
+  // Sample data
   const initialData = [
     {
       id: 1,
-      date: "2025-01-10 10:30 AM",
-      particulars: "Referral Bonus",
-      levelIncome: 5000,
-      deduction: 250, // 5% of Level Income
-      totalNetPay: 4750,
-      payoutDate: "2025-01-15",
-      status: "Paid"
+      depositINR: 5000,
+      depositUSDT: 60,
+      mode: "UPI",
+      txHash: "TX12345",
+      date: "2024-02-26 10:00 AM",
+      status: "Pending",
+      proof: "proof1.jpg"
     },
     {
       id: 2,
-      date: "2025-02-12 02:45 PM",
-      particulars: "Level Commission",
-      levelIncome: 3000,
-      deduction: 150,
-      totalNetPay: 2850,
-      payoutDate: "2025-02-20",
-      status: "Pending"
+      depositINR: 7000,
+      depositUSDT: 85,
+      mode: "Bank Transfer",
+      txHash: "TX12346",
+      date: "2024-02-26 11:00 AM",
+      status: "Completed",
+      proof: "proof2.jpg"
     },
-    {
-      id: 3,
-      date: "2025-03-05 09:00 AM",
-      particulars: "Direct Bonus",
-      levelIncome: 7000,
-      deduction: 350,
-      totalNetPay: 6650,
-      payoutDate: "2025-03-10",
-      status: "Paid"
-    },
-    {
-      id: 4,
-      date: "2025-04-15 05:15 PM",
-      particulars: "Leadership Bonus",
-      levelIncome: 4500,
-      deduction: 225,
-      totalNetPay: 4275,
-      payoutDate: "2025-04-22",
-      status: "Paid"
-    },
-    {
-      id: 5,
-      date: "2025-05-01 11:00 AM",
-      particulars: "Matching Bonus",
-      levelIncome: 2500,
-      deduction: 125,
-      totalNetPay: 2375,
-      payoutDate: "2025-05-10",
-      status: "Pending"
-    },
-    {
-      id: 6,
-      date: "2025-06-18 04:30 PM",
-      particulars: "Referral Bonus",
-      levelIncome: 6000,
-      deduction: 300,
-      totalNetPay: 5700,
-      payoutDate: "2025-06-25",
-      status: "Paid"
-    },
-    {
-      id: 7,
-      date: "2025-07-20 07:45 AM",
-      particulars: "Performance Bonus",
-      levelIncome: 4000,
-      deduction: 200,
-      totalNetPay: 3800,
-      payoutDate: "2025-07-28",
-      status: "Pending"
-    },
-    {
-      id: 8,
-      date: "2025-08-10 12:20 PM",
-      particulars: "Level Commission",
-      levelIncome: 3200,
-      deduction: 160,
-      totalNetPay: 3040,
-      payoutDate: "2025-08-18",
-      status: "Paid"
-    },
-    {
-      id: 9,
-      date: "2025-09-02",
-      particulars: "Direct Bonus",
-      levelIncome: 5500,
-      deduction: 275,
-      totalNetPay: 5225,
-      payoutDate: "2025-09-10",
-      status: "Paid"
-    },
-    {
-      id: 10,
-      date: "2025-10-15 09:10 AM",
-      particulars: "Leadership Bonus",
-      levelIncome: 4800,
-      deduction: 240,
-      totalNetPay: 4560,
-      payoutDate: "2025-10-22",
-      status: "Pending"
-    }
+    // Other data items are included here
   ];
 
   const columns = Object.keys(initialData[0] || {});
@@ -130,12 +40,11 @@ const LevelIncome = () => {
   });
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [filters, setFilters] = useState({
-    particulars: "All", // Change from "club" to "particulars"
+    depositMode: "All",
     status: "All"
   });
-
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Adjust as needed
+  const itemsPerPage = 10;
 
   // Calculate total pages
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -146,22 +55,18 @@ const LevelIncome = () => {
     currentPage * itemsPerPage
   );
 
-  // Get unique Particulars for filters
-  const uniqueParticulars = [
-    "All",
-    ...new Set(data.map((item) => item.particulars))
-  ];
+  // Get unique deposit modes and statuses for filters
+  const uniqueDepositModes = ["All", ...new Set(data.map((item) => item.mode))];
   const uniqueStatuses = ["All", ...new Set(data.map((item) => item.status))];
 
-  // Format date string for comparison (extract just the date part)
-  const getDateForComparison = (dateString) => {
-    return dateString.split(" ")[0];
+  // Format datetime string for comparison (extract just the date part)
+  const getDateForComparison = (dateTimeString) => {
+    return dateTimeString.split(" ")[0];
   };
 
   // Format date for display
   const formatDateForDisplay = (dateString) => {
     if (!dateString) return "";
-
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
       month: "short",
@@ -174,11 +79,9 @@ const LevelIncome = () => {
   useEffect(() => {
     let result = data;
 
-    // Apply particulars filter
-    if (filters.particulars !== "All") {
-      result = result.filter(
-        (item) => item.particulars === filters.particulars
-      );
+    // Apply Deposit Mode Filter
+    if (filters.depositMode !== "All") {
+      result = result.filter((item) => item.mode === filters.depositMode);
     }
 
     // Apply status filter
@@ -210,6 +113,8 @@ const LevelIncome = () => {
     }
 
     setFilteredData(result);
+    // Reset to page 1 when filters change
+    setCurrentPage(1);
   }, [data, filters, dateRange, searchTerm]);
 
   // Handle row selection
@@ -265,7 +170,7 @@ const LevelIncome = () => {
   // Reset all filters
   const resetFilters = () => {
     setFilters({
-      particulars: "All",
+      depositMode: "All",
       status: "All"
     });
     setDateRange({
@@ -273,6 +178,7 @@ const LevelIncome = () => {
       endDate: ""
     });
     setSearchTerm("");
+    setSelectedRows({});
   };
 
   // Get date range display text
@@ -289,87 +195,62 @@ const LevelIncome = () => {
     return "Select date range";
   };
 
+  // Check if any filters are active
+  const hasActiveFilters = () => {
+    return (
+      filters.depositMode !== "All" ||
+      filters.status !== "All" ||
+      dateRange.startDate ||
+      dateRange.endDate ||
+      searchTerm
+    );
+  };
+
+  // Mock functions for export functionality
+  const exportToClipboard = () => {
+    console.log("Export to clipboard");
+  };
+
+  const exportToExcel = () => {
+    console.log("Export to Excel");
+  };
+
+  const exportToPDF = () => {
+    console.log("Export to PDF");
+  };
+
   return (
     <>
       {/* Header (Fixed) */}
       <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-        <button onClick={() => navigate(-1)}>
+        <button>
           <ChevronLeft />
         </button>
         <span className="font-semibold text-lg whitespace-nowrap">
-          Level Income Report
+          Deposit History
         </span>
+        <div></div> {/* Empty div for grid alignment */}
       </div>
-      <div className="m-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col justify-space p-2 bg-primary text-black rounded-lg primary-gradient text-center">
-            <span className="text-sm">Total Net Paid Earning</span>
-            <span className="text-2xl font-semibold">
-              <span id="level-income">₹91580</span>
-            </span>
-          </div>
-          <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient  text-center">
-            <span className="text-sm">Total Net Pending Earning</span>
-            <span className="text-2xl font-semibold">
-              <span id="level-income">₹51490</span>
-            </span>
-          </div>
-          <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
-            <span className="text-sm">Total Paid Earning</span>
-            <span className="text-2xl font-semibold">
-              <span id="level-income">₹96400</span>
-            </span>
-          </div>
-          <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
-            <span className="text-sm">Total Pending Earning</span>
-            <span className="text-2xl font-semibold">
-              <span id="level-income">₹54200</span>
-            </span>
-          </div>
-          <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
-            <span className="text-sm">Total Earning</span>
-            <span className="text-2xl font-semibold">
-              <span id="level-income">₹143070.00</span>
-            </span>
-          </div>
-        </div>
-      </div>
+      
       <div className="space-y-4 p-4 bg-gray-50 rounded-xl pb-20">
         {/* Export Buttons */}
         <div className="flex justify-end gap-2 mb-4">
           <button
             type="button"
-            onClick={() =>
-              exportToClipboard(initialData, selectedRows, columns)
-            }
+            onClick={exportToClipboard}
             className="text-white bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-gray-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
             Copy
           </button>
           <button
-            onClick={() =>
-              exportToExcel(
-                initialData,
-                selectedRows,
-                columns,
-                "table_data.csv"
-              )
-            }
+            onClick={exportToExcel}
             type="button"
             className="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
             Excel
           </button>
           <button
-            onClick={() =>
-              exportToPDF(
-                initialData,
-                selectedRows,
-                columns,
-                "Exported Table Data",
-                "table_data.pdf"
-              )
-            }
+            onClick={exportToPDF}
             type="button"
             className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
@@ -406,21 +287,21 @@ const LevelIncome = () => {
 
           {/* Filter Section */}
           <div className="grid grid-cols-2 gap-4 items-end">
-            {/* Club Filter */}
+            {/* Deposit Mode Filter */}
             <div>
               <label className="block mb-1 text-sm font-medium">
-                Particulars:
+                Deposit Mode:
               </label>
               <select
                 className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                value={filters.particulars}
+                value={filters.depositMode}
                 onChange={(e) =>
-                  handleFilterChange("particulars", e.target.value)
+                  handleFilterChange("depositMode", e.target.value)
                 }
               >
-                {uniqueParticulars.map((particular) => (
-                  <option key={particular} value={particular}>
-                    {particular}
+                {uniqueDepositModes.map((mode) => (
+                  <option key={mode} value={mode}>
+                    {mode}
                   </option>
                 ))}
               </select>
@@ -448,7 +329,7 @@ const LevelIncome = () => {
                 Date Range:
               </label>
               <button
-                className="flex items-center border rounded-lg p-2  bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex items-center border rounded-lg p-2 w-full bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
               >
                 <svg
@@ -546,7 +427,7 @@ const LevelIncome = () => {
 
             {/* Reset Button */}
             <button
-              className=" bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors"
               onClick={resetFilters}
             >
               Reset Filters
@@ -554,18 +435,14 @@ const LevelIncome = () => {
           </div>
         </div>
 
-        {/* Active Filters Summary */}
-        {(filters.particulars !== "All" ||
-          filters.status !== "All" ||
-          dateRange.startDate ||
-          dateRange.endDate ||
-          searchTerm) && (
+        {/* Active Filters Summary - Only shows when filters are active */}
+        {hasActiveFilters() && (
           <div className="text-sm bg-blue-50 p-3 rounded-lg flex items-center justify-between">
             <div>
               <span className="font-semibold">Active filters:</span>
-              {filters.particulars !== "All" && (
+              {filters.depositMode !== "All" && (
                 <span className="ml-2 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
-                  {filters.particulars}
+                  {filters.depositMode}
                 </span>
               )}
               {filters.status !== "All" && (
@@ -593,7 +470,7 @@ const LevelIncome = () => {
         {/* Table */}
         <div className="relative overflow-x-auto rounded-xl bg-white shadow-lg">
           <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-gray-700  bg-gradient-to-r from-primary to-secondary">
+            <thead className="text-gray-700 bg-gradient-to-r from-yellow-200 to-yellow-300">
               <tr className="text-center whitespace-nowrap capitalize">
                 <th className="px-3 py-2">
                   <input
@@ -607,13 +484,13 @@ const LevelIncome = () => {
                   />
                 </th>
                 <th className="px-3 py-2">Sr</th>
-                <th className="px-3 py-2">Date & Time</th>
-                <th className="px-3 py-2">Particulars</th>
-                <th className="px-3 py-2">levelIncome</th>
-                <th className="px-3 py-2">deduction</th>
-                <th className="px-3 py-2">totalNetPay</th>
-                <th className="px-3 py-2">payoutDate</th>
-                <th className="px-3 py-2">Status</th>
+                <th className="px-4 py-2">Date & Time</th>
+                <th className="px-4 py-2">Deposit Amount (INR)</th>
+                <th className="px-4 py-2">Deposit Amount (USDT)</th>
+                <th className="px-4 py-2">Deposit Mode</th>
+                <th className="px-4 py-2">Transaction Hash</th>
+                <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Payment Proof</th>
               </tr>
             </thead>
             <tbody>
@@ -635,15 +512,14 @@ const LevelIncome = () => {
                       {(currentPage - 1) * itemsPerPage + index + 1}
                     </td>
                     <td className="px-3 py-2">{item.date}</td>
-                    <td className="px-3 py-2">{item.particulars}</td>
-                    <td className="px-3 py-2">{item.levelIncome}</td>
-                    <td className="px-3 py-2">{item.deduction}</td>
-                    <td className="px-3 py-2">{item.totalNetPay}</td>
-                    <td className="px-3 py-2">{item.payoutDate}</td>
+                    <td className="px-3 py-2">{item.depositINR}</td>
+                    <td className="px-3 py-2">{item.depositUSDT}</td>
+                    <td className="px-3 py-2">{item.mode}</td>
+                    <td className="px-3 py-2">{item.txHash}</td>
                     <td className="px-3 py-2">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          item.status === "Paid"
+                          item.status === "Completed"
                             ? "bg-green-100 text-green-800"
                             : item.status === "Pending"
                             ? "bg-yellow-100 text-yellow-800"
@@ -653,12 +529,20 @@ const LevelIncome = () => {
                         {item.status}
                       </span>
                     </td>
+                    <td className="px-4 py-2">
+                      <a
+                        href="#"
+                        className="text-blue-500 underline"
+                      >
+                        View Proof
+                      </a>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
                   <td
-                    colSpan="7"
+                    colSpan="9"
                     className="px-3 py-6 text-center text-gray-500"
                   >
                     No records found matching your filters
@@ -669,27 +553,29 @@ const LevelIncome = () => {
           </table>
 
           {/* Pagination Controls */}
-          <div className="flex justify-between items-center p-4">
-            <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              className="px-3 py-1 bg-primary text-gray-700 rounded disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <span className="text-gray-700">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              disabled={currentPage === totalPages}
-              className="px-3 py-1 bg-primary text-gray-700 rounded disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
+          {paginatedData.length > 0 && (
+            <div className="flex justify-between items-center p-4">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 bg-yellow-200 text-gray-700 rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <span className="text-gray-700">
+                Page {currentPage} of {totalPages || 1}
+              </span>
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages || 1))
+                }
+                disabled={currentPage === totalPages || totalPages === 0}
+                className="px-3 py-1 bg-yellow-200 text-gray-700 rounded disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Selected items summary */}
@@ -698,9 +584,13 @@ const LevelIncome = () => {
           {filteredData.length} items
         </div>
       </div>
-      <Footer />
+      
+      {/* Footer placeholder */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-3 text-center">
+        Footer
+      </div>
     </>
   );
 };
 
-export default LevelIncome;
+export default DepositHistory;

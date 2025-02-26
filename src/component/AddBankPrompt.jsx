@@ -4,7 +4,7 @@ function AddBankPrompt() {
   return (
     <>
       <div className="px-5">
-        <div className="flex items-center justify-between  p-2 rounded-lg  w-full bg-white   ">
+        <div className="flex items-center justify-between  p-2 rounded-2xl  w-full bg-white   ">
           <span className="text-black font-medium">Add Bank Details</span>
           <div className="flex items-center">
             <div className="flex items-center gap-2 bg-red-500 text-white text-sm font-semibold px-3 py-0.5 rounded-full">
