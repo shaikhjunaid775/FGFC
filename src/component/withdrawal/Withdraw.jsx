@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {toast, Toaster} from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 
 function Withdraw() {
   const [activeTab, setActiveTab] = useState(1);
@@ -15,12 +15,24 @@ function Withdraw() {
 
   const slabData = {
     1: [
-      { amount: 800000.0, depositDate: "2024-12-10 20:59:02" },
-      { amount: 600000.0, depositDate: "2024-12-05 18:30:45" },
-      { amount: 750000.0, depositDate: "2024-12-01 12:15:20" }
+      {
+        amount: 800000.0,
+        depositDate: "2024-12-10 20:59:02",
+        status: "Active"
+      },
+      {
+        amount: 600000.0,
+        depositDate: "2024-12-05 18:30:45",
+        status: "Inactive"
+      },
+      { amount: 750000.0, depositDate: "2024-12-01 12:15:20", status: "Active" }
     ],
-    2: [{ amount: 500000.0, depositDate: "2024-11-20 15:45:30" }],
-    3: [{ amount: 300000.0, depositDate: "2024-10-05 10:30:15" }]
+    2: [
+      { amount: 500000.0, depositDate: "2024-11-20 15:45:30", status: "Active" }
+    ],
+    3: [
+      { amount: 300000.0, depositDate: "2024-10-05 10:30:15", status: "Active" }
+    ]
   };
 
   const openModal = (type) => {
@@ -37,7 +49,7 @@ function Withdraw() {
 
   return (
     <>
-    <Toaster />
+      <Toaster />
       <div className="relative">
         <div className="flex bg-white">
           {tabs.map((tab) => (
@@ -69,14 +81,39 @@ function Withdraw() {
           slabData[activeTab].map((slab, index) => (
             <div key={index} className="px-0 py-3">
               <div className="bg-[#FFFCF2] p-2 border border-primary mb-3 rounded-2xl px-2.5 pb-3 relative">
+                <span
+                  className={`inline-flex items-center ring-1 text-[9px] font-medium ms-2 px-2 py-0.5 rounded-full absolute -top-2.5
+                  ${
+                    slab.status === "Inactive"
+                      ? "bg-[#FFB4B4] ring-[#c44545] text-[#920000]"
+                      : "bg-[#B4FFEB] ring-[#45c455] text-[#00926C]"
+                  }`}
+                >
+                  <span
+                    className={`animate-pulse w-1.5 h-1.5 me-1 rounded-full 
+                    ${
+                      slab.status === "Inactive"
+                        ? "bg-[#AC0000]"
+                        : "bg-[#00AC7F]"
+                    }`}
+                  ></span>
+                  {slab.status}
+                </span>
+
                 <div className="flex flex-col gap-3">
                   <div className="flex justify-end">
-                    <span className="text-[8px] text-dark">Deposit Date: {slab.depositDate}</span>
+                    <span className="text-[8px] text-dark">
+                      Deposit Date: {slab.depositDate}
+                    </span>
                   </div>
                   <div className="grid grid-cols-1 gap-2">
                     <div className="bg-[#ffffff] border border-primary rounded-lg p-1">
-                      <h4 className="text-xs font-normal text-center">Investment Amount</h4>
-                      <p className="text-xl font-bold text-black leading-tight text-center mt-2">{slab.amount}</p>
+                      <h4 className="text-xs font-normal text-center">
+                        Investment Amount
+                      </h4>
+                      <p className="text-xl font-bold text-black leading-tight text-center mt-2">
+                        {slab.amount}
+                      </p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3 mt-3">
