@@ -7,8 +7,11 @@ import AddBankPrompt from "../component/AddBankPrompt";
 import Bank from "../component/deposit/Bank";
 import Upi from "../component/deposit/Upi";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
 
 const Deposit = () => {
+  const navigate = useNavigate();
   const [depositMode, setDepositMode] = useState(null);
   const [activeTab, setActiveTab] = useState("usdt");
   const [amount, setAmount] = useState("");
@@ -47,7 +50,7 @@ const Deposit = () => {
   return (
     <>
       <Toaster />
-      <div className="relative overflow-hidden h-screen">
+      <div className="relative overflow-hidden h-screen ">
         <AnimatePresence mode="wait">
           {!depositMode ? (
             <motion.div
@@ -58,11 +61,17 @@ const Deposit = () => {
               transition={{ type: "tween", duration: 0.1 }}
               className="absolute inset-0"
             >
-              <div className="p-3 text-center">
-                <span className="font-semibold text-lg">Deposit Mode</span>
+              {/* Header (Fixed) */}
+              <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
+                <button onClick={() => navigate(-1)}>
+                  <ChevronLeft  />
+                </button>
+                <span className="font-semibold text-md whitespace-nowrap">
+                  Deposit Mode
+                </span>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 mt-3">
                 <KycPrompt />
                 <AddBankPrompt />
               </div>
@@ -93,23 +102,28 @@ const Deposit = () => {
                   ))}
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-4 ">
                   <label
                     htmlFor="depositAmount"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
                     Deposit Amount
                   </label>
-                  <input
-                    type="number"
-                    id="depositAmount"
-                    className="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    placeholder={`Enter deposit amount in ${
-                      activeTab === "usdt" ? "($)" : "(₹)"
-                    }`}
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
+                  <div className="relative">
+                    <div className="absolute top-2 start-0 flex items-center ps-3.5 pointer-events-none text-gray-500 font-semibold">
+                      {activeTab === "usdt" ? "$" : "₹"}
+                    </div>
+                    <input
+                      type="number"
+                      id="depositAmount"
+                      className="w-full px-4 py-2 pl-7 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      placeholder={`Enter deposit amount in ${
+                        activeTab === "usdt" ? "($)" : "(₹)"
+                      }`}
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <button

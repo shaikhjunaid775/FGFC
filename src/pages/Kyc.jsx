@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import Footer from "../component/Footer";
+import { useNavigate } from "react-router-dom";
 
-const DocumentUploader = () => {
+const Kyc = () => {
+  const navigate = useNavigate();
   const [selectedFiles, setSelectedFiles] = useState({
     aadharFront: null,
     aadharBack: null,
@@ -27,11 +29,12 @@ const DocumentUploader = () => {
 
   return (
     <>
+      {/* Header (Fixed) */}
       <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-        <button>
+        <button onClick={() => navigate(-1)}>
           <ChevronLeft />
         </button>
-        <span className="font-semibold text-lg whitespace-nowrap">Kyc</span>
+        <span className="font-semibold text-md whitespace-nowrap">Kyc</span>
       </div>
 
       <div className="  ">
@@ -103,4 +106,4 @@ const DocumentUploader = () => {
   );
 };
 
-export default DocumentUploader;
+export default Kyc;

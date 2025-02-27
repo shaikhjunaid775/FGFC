@@ -242,19 +242,19 @@ const MonthlyIncome = () => {
       </div>
       <div className="m-4">
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col justify-space p-2 bg-primary text-black rounded-lg primary-gradient text-center">
+          <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient text-center">
             <span className="text-sm">Total Net Paid Earning</span>
             <span className="text-2xl font-semibold">
               <span id="level-income">₹91580</span>
             </span>
           </div>
-          <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient  text-center">
+          <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
             <span className="text-sm">Total Net Pending Earning</span>
             <span className="text-2xl font-semibold">
               <span id="level-income">₹51490</span>
             </span>
           </div>
-          <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
+          <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient  text-center">
             <span className="text-sm">Total Paid Earning</span>
             <span className="text-2xl font-semibold">
               <span id="level-income">₹96400</span>
@@ -266,7 +266,7 @@ const MonthlyIncome = () => {
               <span id="level-income">₹54200</span>
             </span>
           </div>
-          <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
+          <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient  text-center">
             <span className="text-sm">Total Earning</span>
             <span className="text-2xl font-semibold">
               <span id="level-income">₹143070.00</span>

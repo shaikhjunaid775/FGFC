@@ -68,12 +68,9 @@ function ProfileMenus() {
       items: [
         {
           title: "Withdrawal Fund",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/briefcase_8100500.svg"
+          icon: "https://fgfcunion.finance/assets/assets/images/svg/briefcase_8100500.svg",
+          url: "/Withdraw"
         },
-        {
-          title: "Withdrawal History",
-          icon: "https://fgfcunion.finance/assets/assets/images/svg/alarm_5808360.svg"
-        }
       ]
     },
     {

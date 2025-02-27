@@ -288,19 +288,19 @@ const DownlineTeam = () => {
       <div className="m-4">
         <div className="grid grid-cols-3 gap-4">
           <div className="flex flex-col justify-space p-2 bg-primary text-black rounded-lg primary-gradient text-center">
-            <span className="text-md">Total Team</span>
+            <span className="text-sm">Total Team</span>
             <span className="text-2xl font-semibold">
               <span id="level-income">3</span>
             </span>
           </div>
           <div className="flex flex-col justify-space p-2 bg-primary text-green-800 rounded-lg primary-gradient  text-center">
-            <span className="text-md">Total Active</span>
+            <span className="text-sm">Total Active</span>
             <span className="text-2xl font-semibold">
               <span id="level-income">3</span>
             </span>
           </div>
           <div className="flex flex-col justify-space p-2 bg-primary text-red-800 rounded-lg primary-gradient  text-center">
-            <span className="text-md">Total Inactive</span>
+            <span className="text-sm">Total Inactive</span>
             <span className="text-2xl font-semibold">
               <span id="level-income">5</span>
             </span>

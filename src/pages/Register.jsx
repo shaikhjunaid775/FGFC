@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo/logo-dark.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../App"; // Import the AuthContext
 
 function Register() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,6 +21,7 @@ function Register() {
     referralId: "",
     termsAccepted: false
   });
+  const auth = useContext(AuthContext); // Use the auth context
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -68,6 +72,15 @@ function Register() {
 
     console.log(formData);
     toast.success("Form submitted and data stored successfully");
+
+    // Store form data in local storage (excluding the password for security)
+    localStorage.setItem("userData", JSON.stringify(formData));
+
+    // Auto login the user
+    auth.login({ username: formData.username });
+
+    toast.success("Registration successful! Logging in...");
+    navigate("/welcomeletter"); // Redirect to welcome letter
   };
 
   const isFormValid = () => {

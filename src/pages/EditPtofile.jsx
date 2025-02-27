@@ -1,9 +1,10 @@
 import { ChevronLeft } from "lucide-react";
 import Footer from "../component/Footer";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function EditPtofile() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     gender: "",
@@ -29,14 +30,15 @@ function EditPtofile() {
     console.log("Form submitted", formData);
   };
 
+
   return (
     <>
       {/* Header (Fixed) */}
       <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-        <button>
+        <button onClick={() => navigate(-1)}>
           <ChevronLeft />
         </button>
-        <span className="font-semibold text-lg whitespace-nowrap">
+        <span className="font-semibold text-md whitespace-nowrap">
           Edit Profile
         </span>
       </div>

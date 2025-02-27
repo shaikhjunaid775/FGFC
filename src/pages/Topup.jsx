@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import ActivateID from "../component/Topup/ActivateID";
 import ActivationHistory from "../component/Topup/ActivationHistory";
 import Footer from "../component/Footer";
+import { useNavigate } from "react-router-dom";
 
 function Topup() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(1);
 
   const handleClick = (tabId) => {
@@ -21,11 +23,11 @@ function Topup() {
       <div className="bg-white h-screen flex flex-col">
         {/* Header (Fixed) */}
         <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-          <button>
+          <button onClick={() => navigate(-1)}>
             <ChevronLeft />
           </button>
-          <span className="font-semibold text-lg whitespace-nowrap">
-          Activate/Topup ID
+          <span className="font-semibold text-md whitespace-nowrap">
+            Activate/Topup ID
           </span>
         </div>
 

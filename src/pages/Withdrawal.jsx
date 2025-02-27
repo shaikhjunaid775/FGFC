@@ -1,13 +1,12 @@
-import {  ChevronLeft } from "lucide-react";
+import { Eye, ChevronLeft, Plus } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Footer from "../component/Footer";
-import AddBank from "../component/bankDetail/AddBank"
-import BankHistory from "../component/bankDetail/BankHistory"
-import { useNavigate } from "react-router-dom";
 
-function BankDetails() {
-  const navigate = useNavigate();
+import Footer from "../component/Footer";
+import Withdraw from "../component/withdrawal/Withdraw";
+import WithdrawHistory from "../component/withdrawal/WithdrawHistory";
+
+function Withdrawal() {
   const [activeTab, setActiveTab] = useState(1);
 
   const handleClick = (tabId) => {
@@ -15,19 +14,19 @@ function BankDetails() {
   };
 
   const tabs = [
-    { id: 1, label: "Add Account", content: <AddBank /> },
-    { id: 2, label: "Total Accounts", content: <BankHistory /> }
+    { id: 1, label: "Withdraw", content: <Withdraw /> },
+    { id: 2, label: "Withdraw History", content: <WithdrawHistory /> }
   ];
   return (
     <>
       <div className="bg-white h-screen flex flex-col">
         {/* Header (Fixed) */}
         <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
-          <button onClick={() => navigate(-1)}>
+          <button>
             <ChevronLeft />
           </button>
-          <span className="font-semibold text-md whitespace-nowrap">
-            Add Bank
+          <span className="font-semibold text-lg whitespace-nowrap">
+            Withdrawal
           </span>
         </div>
 
@@ -81,4 +80,4 @@ function BankDetails() {
   );
 }
 
-export default BankDetails;
+export default Withdrawal;

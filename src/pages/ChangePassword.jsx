@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import Footer from "../component/Footer";
+import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function ChangePassword() {
+  const navigate = useNavigate();
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -36,8 +39,12 @@ function ChangePassword() {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="bg-white p-3 text-center sticky top-0 z-10">
-        <span className="font-semibold text-lg whitespace-nowrap">
+      {/* Header (Fixed) */}
+      <div className="grid grid-cols-3 p-3 text-center shadow-md bg-white sticky top-0 z-10">
+        <button onClick={() => navigate(-1)}>
+          <ChevronLeft />
+        </button>
+        <span className="font-semibold text-md whitespace-nowrap">
           Change Password
         </span>
       </div>

@@ -55,7 +55,7 @@ function Menu() {
         </svg>
       ),
       label: "Start Investing",
-      path: "/profile"
+      path: "/investment"
     },
     {
       icon: (

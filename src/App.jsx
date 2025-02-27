@@ -31,6 +31,10 @@ import ArticleLoginReg from "./component/help/ArticleLoginReg";
 import ArticleDepositUsdt from "./component/help/ArticleDepositUsdt";
 import ArticleDepositUpi from "./component/help/ArticleDepositUpi";
 import ArticleDepositBank from "./component/help/ArticleDepositBank";
+import WelcomeLetter from "./pages/WelcomeLetter";
+import Withdrawal from "./pages/Withdrawal";
+import Investment from "./pages/Investment";
+import StartAnimation from "./pages/StartAnimation";
 
 // Create auth context
 export const AuthContext = createContext(null);
@@ -101,6 +105,38 @@ function App() {
             <Route path="/forgotpass" element={<ForgotPassword />} />
             
             {/* Protected Routes */}
+            <Route 
+              path="/startAnimation" 
+              element={
+                <ProtectedRoute>
+                  <StartAnimation />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/investment" 
+              element={
+                <ProtectedRoute>
+                  <Investment />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/WelcomeLetter" 
+              element={
+                <ProtectedRoute>
+                  <WelcomeLetter />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/Withdraw" 
+              element={
+                <ProtectedRoute>
+                  <Withdrawal />
+                </ProtectedRoute>
+              } 
+            />
             <Route 
               path="/dashboard" 
               element={
