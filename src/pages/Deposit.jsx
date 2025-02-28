@@ -77,7 +77,7 @@ const Deposit = () => {
               </div>
 
               {/* Deposit Options */}
-              <div className="max-w-md bg-[#fdf8ea] p-6 rounded-2xl shadow-md m-5 border border-gray-300">
+              <div className="max-w-lg mx-auto bg-[#fdf8ea] p-6 rounded-2xl shadow-md m-5 border border-gray-300">
                 <div className="flex mb-6">
                   {tabs.map((tab) => (
                     <motion.button
@@ -94,7 +94,7 @@ const Deposit = () => {
                       className={`flex-1 flex gap-1 items-center justify-center text-sm font-medium h-8 px-4 text-center rounded-2xl whitespace-nowrap focus-visible:outline-none focus-visible:ring ring-indigo-300 transition-colors duration-300 ease-in-out ${
                         activeTab === tab.id
                           ? "bg-primary text-black shadow-lg"
-                          : "text-black/60 hover:text-slate-50"
+                          : "text-black/60 "
                       }`}
                     >
                       {tab.label}

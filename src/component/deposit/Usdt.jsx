@@ -50,7 +50,7 @@ const Usdt = ({ goBack, amount }) => {
             <History />
           </Link>
         </div>
-        <div className="max-w-md  px-2 pb-20 overflow-y-auto">
+        <div className="max-w-lg mx-auto  px-2 pb-20 overflow-y-auto">
           {/* Top section with currency and network */}
           <div className="bg-amber-50 border border-yellow-300 rounded-lg p-4 my-3">
             <div className="flex justify-between gap-5">

@@ -47,7 +47,7 @@ const Upi = ({ goBack, amount }) => {
             <History />
           </Link>
         </div>
-        <div className="max-w-md mx-3 my-3">
+        <div className="max-w-lg mx-auto my-3">
           {/* Main deposit form */}
           <div className="bg-amber-50 border border-yellow-300  rounded-lg p-4 ">
             <div className="flex justify-center">

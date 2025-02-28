@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-function FundTransfer() {
+function FundTransfer( {balance} ) {
   const [username, setUsername] = useState("");
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
-  const availableBalance = "45000000.00";
 
   const handleTransfer = () => {
     // Handle transfer logic
@@ -46,7 +45,7 @@ function FundTransfer() {
                 className="w-full px-3 py-2 rounded-xl border border-neutral-200/80 focus:border-neutral-300 focus:ring-2 focus:ring-neutral-200 transition-all duration-200 bg-white/50 backdrop-blur-sm"
               />
               <p className="text-sm text-neutral-500 mt-1">
-                Available Balance: {availableBalance}
+                Available Balance: {balance}
               </p>
             </div>
 

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function TransferFund() {
   const navigate = useNavigate();
+  const [balance, setBalance] = useState(325286521.00);
   const [activeTab, setActiveTab] = useState(1);
 
   const handleClick = (tabId) => {
@@ -15,7 +16,7 @@ function TransferFund() {
   };
 
   const tabs = [
-    { id: 1, label: "Fund Transfer", content: <FundTransfer /> },
+    { id: 1, label: "Fund Transfer", content: <FundTransfer balance={balance} /> },
     { id: 2, label: "Transfer History", content: <TransferHistory /> }
   ];
   return (
@@ -40,7 +41,7 @@ function TransferFund() {
               <div className="space-y-1">
                 <p className="text-sm text-gray-500">Total Available</p>
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-semibold">$32,521.00</h2>
+                  <h2 className="text-2xl font-semibold">${balance}</h2>
                   <button className="text-gray-400 hover:text-gray-600 transition-colors">
                     <Eye className="w-5 h-5" />
                   </button>

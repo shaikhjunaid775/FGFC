@@ -57,6 +57,7 @@ function App() {
   // Track authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const isVerified = false; // Change to false for "Unverified"
   
   // Check for authentication on initial load
   useEffect(() => {
@@ -141,7 +142,7 @@ function App() {
               path="/dashboard" 
               element={
                 <ProtectedRoute>
-                  <Home />
+                  <Home  />
                 </ProtectedRoute>
               } 
             />
