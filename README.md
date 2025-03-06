@@ -60,10 +60,9 @@ Feel free to fork this repository and submit pull requests for improvements or f
 ## License
 
 This project is licensed under the MIT License.
+## Demo Link
 
-## Contact
-
-For any queries or issues, reach out via email: **[your-email@example.com](mailto\:your-email@example.com)**
+https://fgfc.netlify.app/
 
 
 
