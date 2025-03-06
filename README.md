@@ -27,7 +27,6 @@ The **Crypto MLM Dashboard** is a secure and feature-rich platform designed for 
 
 - **Frontend**: React.js, Tailwind CSS
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB / MySQL (depending on implementation)
 - **Authentication**: JWT (JSON Web Token)
 - **State Management**: Context API / Redux
 - **API Requests**: Axios
